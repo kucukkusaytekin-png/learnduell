@@ -425,6 +425,116 @@ export const mathTranslations: Record<string, MathTranslation> = {
     prompt: 'Was bedeutet es, wenn das charakteristische Polynom p(λ) = det(A − λ·I) keine reellen Nullstellen hat? / Karakteristik polinomun reel kökü yoksa ne olur?',
     explanation: 'A hat keine reellen Eigenwerte (nur komplexe). / A\'nın reel Eigenwert\'ı yok (sadece karmaşık).',
   },
+
+  // ─── Integral (Analysis II) ───────────────────────────────────────────────
+  i1: {
+    prompt: 'Was ist eine Stammfunktion von f(x)? / f(x)\'in Stammfunktion\'ı nedir?',
+    explanation: 'Eine Funktion F(x) mit F\'(x) = f(x) — also die Umkehrung der Ableitung. / F\'(x) = f(x) olan fonksiyon — türevin tersi.',
+  },
+  i2: {
+    prompt: 'Welches ist die Stammfunktion von f(x) = 2x? / f(x) = 2x\'in Stammfunktion\'ı nedir?',
+    explanation: 'F(x) = x² + C (denn d/dx(x²) = 2x). / F(x) = x² + C.',
+  },
+  i3: {
+    prompt: 'Welches ist die Stammfunktion von f(x) = x³? / f(x) = x³\'in Stammfunktion\'ı nedir?',
+    explanation: 'F(x) = x⁴/4 + C (Potenzregel rückwärts). / F(x) = x⁴/4 + C.',
+  },
+  i4: {
+    prompt: 'Berechne ∫ x² dx. / ∫ x² dx hesapla.',
+    explanation: 'x³/3 + C (Potenzregel: Exponent + 1, durch neuen Exponent). / x³/3 + C.',
+  },
+  i5: {
+    prompt: 'Berechne ∫ 1 dx. / ∫ 1 dx hesapla.',
+    explanation: 'x + C (denn 1 = x⁰). / x + C.',
+  },
+  i6: {
+    prompt: 'Berechne ∫ x⁵ dx. / ∫ x⁵ dx hesapla.',
+    explanation: 'x⁶/6 + C (Potenzregel). / x⁶/6 + C.',
+  },
+  i7: {
+    prompt: 'Was besagt der Hauptsatz der Differential- und Integralrechnung? / Temel Teorem (Hauptsatz) ne der?',
+    explanation: '∫ₐᵇ f(x) dx = F(b) − F(a), wobei F Stammfunktion von f ist. / ∫ₐᵇ f(x) dx = F(b) − F(a).',
+  },
+  i8: {
+    prompt: 'Berechne ∫₀² 2x dx. / ∫₀² 2x dx hesapla.',
+    explanation: 'F(x) = x². [x²]₀² = 4 − 0 = 4. / Sonuç: 4.',
+  },
+  i9: {
+    prompt: 'Berechne ∫₁³ 1 dx. / ∫₁³ 1 dx hesapla.',
+    explanation: '[x]₁³ = 3 − 1 = 2. / Sonuç: 2.',
+  },
+  i10: {
+    prompt: 'Berechne ∫₀¹ x² dx. / ∫₀¹ x² dx hesapla.',
+    explanation: '[x³/3]₀¹ = 1/3 − 0 = 1/3. / Sonuç: 1/3.',
+  },
+  i11: {
+    prompt: 'Was ist ∫ eˣ dx? / ∫ eˣ dx nedir?',
+    explanation: 'eˣ + C (eˣ kendi Stammfunktion\'ıdır). / eˣ + C.',
+  },
+  i12: {
+    prompt: 'Was ist ∫ sin(x) dx? / ∫ sin(x) dx nedir?',
+    explanation: '−cos(x) + C (Ableitung von cos ist −sin). / −cos(x) + C.',
+  },
+  i13: {
+    prompt: 'Was ist ∫ cos(x) dx? / ∫ cos(x) dx nedir?',
+    explanation: 'sin(x) + C (Ableitung von sin ist cos). / sin(x) + C.',
+  },
+  i14: {
+    prompt: 'Was ist ∫ (1/x) dx? / ∫ (1/x) dx nedir?',
+    explanation: 'ln|x| + C (für x ≠ 0). / ln|x| + C.',
+  },
+  i15: {
+    prompt: 'Wie berechnet man die Fläche zwischen f(x) und der x-Achse? / f(x) ile x-ekseni arasındaki alan nasıl hesaplanır?',
+    explanation: 'A = ∫ₐᵇ |f(x)| dx (mit Nullstellen-Aufteilung). / A = ∫ₐᵇ |f(x)| dx (Nullstellen\'da böl).',
+  },
+  i16: {
+    prompt: 'Was passiert, wenn f(x) im Intervall negativ ist? / f(x) aralıkta negatifse ne olur?',
+    explanation: 'Integral ohne Betrag liefert negativen Wert. Echte Fläche = |Integral|. / Mutlak değer ile al.',
+  },
+  i17: {
+    prompt: 'f(x) = x − 1. Nullstelle? / f(x) = x − 1 Nullstelle nerede?',
+    explanation: 'f(x) = 0 → x = 1. / x = 1.',
+  },
+  i18: {
+    prompt: 'Berechne die Fläche zwischen f(x) = 2x und der x-Achse von 0 bis 3. / f(x) = 2x, x=0 ile 3 arası alan.',
+    explanation: 'A = ∫₀³ 2x dx = [x²]₀³ = 9. / A = 9.',
+  },
+  i19: {
+    prompt: 'Wie berechnet man das Volumen eines Rotationskörpers um die x-Achse? / x-ekseni etrafında dönen cismin hacmi nasıl hesaplanır?',
+    explanation: 'V = π ∫ₐᵇ f(x)² dx (Kreisscheiben summieren). / V = π ∫ₐᵇ f(x)² dx.',
+  },
+  i20: {
+    prompt: 'Berechne das Volumen eines Kegels (Rotation von f(x) = x zwischen 0 und R). / Koni hacmini hesapla (f(x) = x, 0 ile R arası).',
+    explanation: 'V = π ∫₀ᴿ x² dx = πR³/3. / V = πR³/3.',
+  },
+  i21: {
+    prompt: 'Berechne das Volumen einer Kugel mit Radius R. / R yarıçaplı küre hacmi.',
+    explanation: 'V = π ∫₋ᴿᴿ (R² − x²) dx = 4πR³/3. / V = 4πR³/3.',
+  },
+  i22: {
+    prompt: 'Wann darf man unter dem Integral differentiieren/integreren? / Integral altında türev/integral ne zaman alınabilir?',
+    explanation: 'Bei stetigen Funktionen auf geschlossenem Intervall. / Sürekli fonksiyonlar ve kapalı aralık.',
+  },
+  i23: {
+    prompt: 'Was bedeutet ∫ₐᵃ f(x) dx? / ∫ₐᵃ f(x) dx ne demek?',
+    explanation: '0 (Intervall der Länge 0). / 0.',
+  },
+  i24: {
+    prompt: '∫ₐᵇ + ∫ᵦᶜ wenn a<b<c? / ∫ₐᵇ + ∫ᵦᶜ neye eşit?',
+    explanation: '= ∫ₐᶜ (Intervalladditivität). / = ∫ₐᶜ.',
+  },
+  i25: {
+    prompt: 'Berechne ∫₋₁¹ x² dx. / ∫₋₁¹ x² dx hesapla.',
+    explanation: 'x² gerade, symmetrisches Intervall: 2 · ∫₀¹ x² dx = 2/3. / 2/3.',
+  },
+  i26: {
+    prompt: 'Berechne ∫₋₁¹ x³ dx. / ∫₋₁¹ x³ dx hesapla.',
+    explanation: 'x³ ungerade, symmetrisches Intervall: 0. / 0.',
+  },
+  i27: {
+    prompt: 'Welche Funktion ist die Ableitung von F(x) = −cos(x)? / F(x) = −cos(x)\'in türevi nedir?',
+    explanation: 'f(x) = sin(x) (Ableitung von −cos ist sin). / f(x) = sin(x).',
+  },
 };
 
 export function getMathTranslation(id: string): MathTranslation | undefined {

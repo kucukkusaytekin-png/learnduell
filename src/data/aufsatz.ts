@@ -1,4 +1,4 @@
-export type AufsatzType = 'eroerterung' | 'charakterisierung' | 'inhaltsangabe';
+export type AufsatzType = 'eroerterung' | 'charakterisierung' | 'inhaltsangabe' | 'format-guide';
 
 export interface AufsatzPrompt {
   id: string;
@@ -171,4 +171,382 @@ export const aufsatzPrompts: AufsatzPrompt[] = [
 export function getAufsatzTypeLabel(type: AufsatzType): string {
   const found = aufsatzPrompts.find((p) => p.type === type);
   return found?.typeLabel ?? type;
+}
+
+// ════════════════════════════════════════════════════════════════════════════
+// Format-Guide — Aufsatz-Formate für die Oberstufe
+// Strukturen, Schemata, nützliche Phrasen
+// ════════════════════════════════════════════════════════════════════════════
+
+export interface AufsatzFormat {
+  id: string;
+  name: string;
+  englishName?: string;
+  icon: string;
+  color: 'pink' | 'blue' | 'amber' | 'green' | 'cyan' | 'purple';
+  kurz: string; // Kısa açıklama
+  zweck: string; // Ne zaman kullanılır
+  dauer: string; // Tahmini süre (sınavda)
+  laenge: string; // Tahmini kelime sayısı
+  aufbau: { phase: string; beschreibung: string }[]; // Yapı adımları
+  einleitungBeispiel?: string; // Örnek Einleitung
+  schlussBeispiel?: string; // Örnek Schluss
+  nuetzlichePhrasen: { kategorie: string; phrasen: string[] }[]; // Useful phrases
+  tipps: string[];
+  abiRelevanz: string; // NRW Abitur'da ne kadar önemli
+  beispielFrage?: string; // Örnek Abitur-Frage
+}
+
+export const aufsatzFormate: AufsatzFormat[] = [
+  // ─── 1. Lineare Erörterung ───────────────────────────────────────────────
+  {
+    id: 'linear',
+    name: 'Lineare Erörterung',
+    icon: '📝',
+    color: 'pink',
+    kurz: 'Eine eigene Meinung sachlich und überzeugend darlegen — der Klassiker der Oberstufe.',
+    zweck: 'Wenn die Aufgabe „Erörtern Sie…" lautet und du eine Position einnehmen sollst.',
+    dauer: '~90 min',
+    laenge: '400-500 Wörter',
+    aufbau: [
+      { phase: 'Einleitung', beschreibung: 'Thema einführen, eigene Position klar formulieren („Ich vertrete die Position, dass…").' },
+      { phase: 'Hauptteil: Argumente PRO', beschreibung: '2-3 Argumente mit Beispielen und Belegen (These → Argument → Beispiel → Beleg).' },
+      { phase: 'Hauptteil: Argumente CONTRA (optional)', beschreibung: 'Gegenargumente anerkennen + entkräften („Zwar…, aber…").' },
+      { phase: 'Schluss', beschreibung: 'Eigene Position zusammenfassen, Ausblick geben („Abschließend lässt sich sagen…").' },
+    ],
+    einleitungBeispiel: 'Seit der Einführung der Ganztagsschule wird kontrovers diskutiert, ob sie die Bildungschancen verbessert oder einschränkt. In dieser Erörterung vertrete ich die Position, dass die Ganztagsschule überwiegend positive Auswirkungen auf die Schüler hat.',
+    schlussBeispiel: 'Zusammenfassend lässt sich festhalten, dass die Ganztagsschule mehr Chancen als Risiken bietet. Wenn sie gut gestaltet ist, kann sie einen wertvollen Beitrag zur Bildungsgerechtigkeit leisten. Es liegt an uns, diese Chance zu nutzen.',
+    nuetzlichePhrasen: [
+      {
+        kategorie: 'Einleitung',
+        phrasen: [
+          'Seit… wird kontrovers diskutiert, ob…',
+          'Im Folgenden soll erörtert werden, inwiefern…',
+          'In dieser Erörterung vertrete ich die Position, dass…',
+        ],
+      },
+      {
+        kategorie: 'Argumente einleiten',
+        phrasen: [
+          'Ein wesentliches Argument für… ist…',
+          'Zunächst ist zu betonen, dass…',
+          'Darüber hinaus spricht für…, dass…',
+        ],
+      },
+      {
+        kategorie: 'Gegenargumente',
+        phrasen: [
+          'Zwar lässt sich anführen, dass… — jedoch…',
+          'Es wird oft eingewandt, dass… Allerdings…',
+          'Manche Kritiker betonen, dass… Dem ist jedoch entgegenzuhalten, dass…',
+        ],
+      },
+      {
+        kategorie: 'Schluss',
+        phrasen: [
+          'Zusammenfassend lässt sich festhalten, dass…',
+          'Abschließend kann man sagen, dass…',
+          'Insgesamt überwiegen die Vorteile/Nachteile von…',
+        ],
+      },
+    ],
+    tipps: [
+      'Immer eine klare These am Anfang — keine Pseudoausgewogenheit („einerseits… andererseits…").',
+      'Jedes Argument mit einem konkreten Beispiel belegen (Statistik, Geschichte, persönliche Erfahrung).',
+      'Gegenargumente anerkennen, aber entkräften — das zeigt kritisches Denken.',
+    ],
+    abiRelevanz: 'Sehr hoch — eine der drei Hauptformen in NRW Deutsch-Abi (Q1/Q2).',
+    beispielFrage: '„Erörtern Sie, ob die Ganztagsschule die Bildungschancen verbessert."',
+  },
+
+  // ─── 2. Dialektische Erörterung ──────────────────────────────────────────
+  {
+    id: 'dialektisch',
+    name: 'Dialektische Erörterung',
+    icon: '⚖️',
+    color: 'blue',
+    kurz: 'Pro und Contra abwägen, ohne eine eigene Position zu beziehen.',
+    zweck: 'Wenn die Aufgabe „Diskutieren Sie…" lautet und du neutral abwägen sollst.',
+    dauer: '~90 min',
+    laenge: '400-500 Wörter',
+    aufbau: [
+      { phase: 'Einleitung', beschreibung: 'Thema + Kontroverse darstellen, KEINE eigene Position.' },
+      { phase: 'Argumente PRO', beschreibung: '2-3 starke Argumente für die eine Seite (mit Beispielen).' },
+      { phase: 'Übergang', beschreibung: 'Eine Überleitung wie „Dem stehen jedoch gewichtige Argumente gegenüber".' },
+      { phase: 'Argumente CONTRA', beschreibung: '2-3 starke Argumente für die Gegenseite.' },
+      { phase: 'Synthese/Schluss', beschreibung: 'Abwägen, was schwerer wiegt, evtl. Lösung vorschlagen.' },
+    ],
+    einleitungBeispiel: 'Die Frage, ob Jugendliche ab 16 Jahren wählen dürfen sollten, wird in der Gesellschaft kontrovers diskutiert. Im Folgenden sollen die Pro- und Contra-Argumente dieser Debatte dargelegt und abgewogen werden.',
+    nuetzlichePhrasen: [
+      {
+        kategorie: 'Einleitung (neutral)',
+        phrasen: [
+          'Die Frage, ob…, wird kontrovers diskutiert.',
+          'Im Folgenden sollen die wesentlichen Argumente abgewogen werden.',
+        ],
+      },
+      {
+        kategorie: 'Pro',
+        phrasen: [
+          'Befürworter von… argumentieren, dass…',
+          'Für… spricht vor allem, dass…',
+          'Ein gewichtiges Argument ist hier…',
+        ],
+      },
+      {
+        kategorie: 'Übergang',
+        phrasen: [
+          'Dem stehen jedoch gewichtige Gegenargumente gegenüber.',
+          'Allerdings gibt es auch Stimmen, die…',
+        ],
+      },
+      {
+        kategorie: 'Contra',
+        phrasen: [
+          'Gegner von… wenden ein, dass…',
+          'Dagegen lässt sich anführen, dass…',
+          'Kritiker betonen, dass…',
+        ],
+      },
+      {
+        kategorie: 'Synthese',
+        phrasen: [
+          'Bei einer Gesamtbetrachtung zeigt sich, dass…',
+          'Eine mögliche Lösung könnte sein, dass…',
+        ],
+      },
+    ],
+    tipps: [
+      'KEINE eigene Meinung in der Schluss — du wägst nur ab.',
+      'Pro und Contra gleich stark darstellen, sonst wirkt es unausgewogen.',
+      'Am Ende: Synthese oder Kompromissvorschlag.',
+    ],
+    abiRelevanz: 'Hoch — besonders wenn „erörtern Sie, ob…" gestellt wird.',
+    beispielFrage: '„Diskutieren Sie, ob Jugendliche ab 16 Jahren wählen sollten."',
+  },
+
+  // ─── 3. Materialgestützte Erörterung ─────────────────────────────────────
+  {
+    id: 'materialgestuetzt',
+    name: 'Materialgestützte Erörterung',
+    icon: '📰',
+    color: 'amber',
+    kurz: 'Erörterung auf Basis vorgegebener Materialien (Statistik, Zitate, Karikatur).',
+    zweck: 'NRW-Abitur-Klassiker: Du bekommst 2-3 Materialien und sollst dazu eine Erörterung schreiben.',
+    dauer: '~90 min',
+    laenge: '500-600 Wörter',
+    aufbau: [
+      { phase: 'Materialanalyse', beschreibung: 'Alle Materialien lesen, Kernaussagen notieren, Verknüpfungen suchen.' },
+      { phase: 'Einleitung', beschreibung: 'Thema + Bezug zu Material 1 + eigene Frage/These.' },
+      { phase: 'Argument 1 (Material 1)', beschreibung: 'These + Argument + Material 1 als Beleg.' },
+      { phase: 'Argument 2 (Material 2)', beschreibung: 'These + Argument + Material 2 als Beleg.' },
+      { phase: 'Gegenposition', beschreibung: 'Gegenargumente anerkennen und entkräften (Material 3 optional).' },
+      { phase: 'Schluss', beschreibung: 'Eigene Position + Ausblick.' },
+    ],
+    einleitungBeispiel: 'Während die Coronapandemie die Digitalisierung in Schulen beschleunigte, fragen sich viele, ob dieser Wandel langfristig positiv ist. Anhand der vorliegenden Materialien soll erörtert werden, inwiefern digitale Medien den Unterricht verbessern oder behindern.',
+    nuetzlichePhrasen: [
+      {
+        kategorie: 'Materialverweis',
+        phrasen: [
+          'Wie Material 1 zeigt, …',
+          'Diese Aussage wird durch Material 2 gestützt, in dem…',
+          'Laut Statistik in Material 3…',
+        ],
+      },
+      {
+        kategorie: 'Verknüpfung',
+        phrasen: [
+          'Dieser Befund deckt sich mit der Aussage in Material…',
+          'Im Gegensatz dazu hebt Material… hervor, dass…',
+        ],
+      },
+    ],
+    tipps: [
+      'JEDES Argument muss auf ein Material verweisen — sonst gibt es Punktabzug.',
+      'Materialien zuerst gründlich lesen, dann Stichworte machen, dann erst schreiben.',
+      'Karikatur/Zitat/Statistik in eigenen Worten wiedergeben — nicht abschreiben.',
+    ],
+    abiRelevanz: 'Sehr hoch — die häufigste Form im NRW Deutsch-Abi.',
+    beispielFrage: '„Erörtern Sie auf Basis der Materialien, ob Social Media das Kommunikationsverhalten verändert."',
+  },
+
+  // ─── 4. Lyrik-Analyse ────────────────────────────────────────────────────
+  {
+    id: 'lyrik-analyse',
+    name: 'Lyrik-Analyse',
+    icon: '🌹',
+    color: 'purple',
+    kurz: 'Ein Gedicht auf Form, Sprache, Inhalt und Wirkung untersuchen.',
+    zweck: 'EF/Q1 Pflichtaufgabe: ein vorliegendes Gedicht wird analysiert.',
+    dauer: '~60 min',
+    laenge: '300-400 Wörter',
+    aufbau: [
+      { phase: 'Einleitung', beschreibung: 'Autor, Titel, Erscheinungsjahr, Epoche, Thema, Metrum, Reimschema kurz nennen.' },
+      { phase: 'Inhalt (kurz)', beschreibung: 'Wovon handelt das Gedicht? Thema in 1-2 Sätzen zusammenfassen.' },
+      { phase: 'Formale Analyse', beschreibung: 'Metrum (Jambus, Trochäus…), Reimschema (Paar/Kreuz…), Strophenform (Sonett, Quartett…).' },
+      { phase: 'Sprachliche Analyse', beschreibung: 'Bildsprache (Metapher, Vergleich, Personifikation, Symbol), Schlüsselwörter, Sprechhaltung.' },
+      { phase: 'Deutung', beschreibung: 'Was will das Gedicht aussagen? Wirkung auf den Leser.' },
+      { phase: 'Schluss', beschreibung: 'Zusammenfassung der wichtigsten Erkenntnisse.' },
+    ],
+    einleitungBeispiel: 'In Goethes Ballade „Der Erlkönig" (1782) wird die dramatische Verfolgung eines Kindes durch eine übernatürliche Gestalt dargestellt. Das vorliegende Gedicht umfasst acht Strophen zu je vier Versen im Jambus, mit einem unregelmäßigen Reimschema.',
+    nuetzlichePhrasen: [
+      {
+        kategorie: 'Formale Analyse',
+        phrasen: [
+          'Das Metrum des Gedichts ist…',
+          'Es liegt ein… Reim vor (Paarreim, Kreuzreim, umarmender Reim).',
+          'Die Strophenform (z.B. Sonett, Quartett) deutet auf… hin.',
+        ],
+      },
+      {
+        kategorie: 'Sprachliche Analyse',
+        phrasen: [
+          'Bemerkenswert ist die Verwendung einer Metapher: …',
+          'Durch die Personifikation von… wird…',
+          'Das Symbol des/der… steht für…',
+        ],
+      },
+      {
+        kategorie: 'Deutung',
+        phrasen: [
+          'Diese sprachlichen Mittel erzeugen eine Atmosphäre von…',
+          'Das Gedicht thematisiert…',
+          'Insgesamt zeigt das Gedicht, dass…',
+        ],
+      },
+    ],
+    tipps: [
+      'Immer von konkreten Textstellen ausgehen (Zitat + Zeilenangabe).',
+      'Metrum, Reim, Bildsprache — alle drei Dimensionen abdecken.',
+      'Nicht nur beschreiben („Es gibt eine Metapher"), sondern deuten („Die Metapher verdeutlicht, dass…").',
+    ],
+    abiRelevanz: 'Hoch — in EF, Q1 und Q2 immer wieder.',
+    beispielFrage: '„Analysieren Sie das vorliegende Gedicht unter besonderer Berücksichtigung von Metrum, Bildsprache und Wirkung."',
+  },
+
+  // ─── 5. Comment (English) ───────────────────────────────────────────────
+  {
+    id: 'comment-en',
+    name: 'Comment',
+    englishName: 'Comment (English Abitur)',
+    icon: '💬',
+    color: 'green',
+    kurz: 'Persönliche Meinung zu einem kontroversen Thema — typischer English-Abitur-Text.',
+    zweck: 'Wenn du in einer English-Klausur deine Meinung vertreten sollst.',
+    dauer: '~60 min',
+    laenge: '250-350 words',
+    aufbau: [
+      { phase: 'Introduction', beschreibung: 'Hook (provocative statement, statistic, question) + your opinion.' },
+      { phase: 'Body 1: First argument', beschreibung: 'Argument + example + explanation.' },
+      { phase: 'Body 2: Second argument', beschreibung: 'Another argument + example.' },
+      { phase: 'Body 3: Counter-argument', beschreibung: 'Acknowledge the other side, then refute it.' },
+      { phase: 'Conclusion', beschreibung: 'Restate opinion + recommendation/call to action.' },
+    ],
+    einleitungBeispiel: 'In an age of constant connectivity, many argue that social media is destroying real human interaction. While this concern is understandable, I strongly believe that social media can actually enrich our lives when used mindfully.',
+    nuetzlichePhrasen: [
+      {
+        kategorie: 'Introduction',
+        phrasen: [
+          'In an age of…, many argue that…',
+          'The question whether… has sparked heated debate.',
+          'I firmly believe that…',
+        ],
+      },
+      {
+        kategorie: 'Arguments',
+        phrasen: [
+          'First and foremost, …',
+          'Another compelling argument is that…',
+          'What is more, …',
+        ],
+      },
+      {
+        kategorie: 'Counter-argument',
+        phrasen: [
+          'Admittedly, …',
+          'Critics may argue that…, but I would counter that…',
+          'While it is true that…, …',
+        ],
+      },
+      {
+        kategorie: 'Conclusion',
+        phrasen: [
+          'In conclusion, I maintain that…',
+          'All things considered, …',
+          'It is therefore essential that we…',
+        ],
+      },
+    ],
+    tipps: [
+      'Hook ist alles: erstes Satz muss neugierig machen oder provozieren.',
+      'Concrete examples statt abstrakter Aussagen.',
+      'Variety of sentence types — short and long, simple and complex.',
+    ],
+    abiRelevanz: 'Sehr hoch — Standard im English Abitur (Q1, Q2).',
+    beispielFrage: '"Comment on the following statement: Social media does more harm than good."',
+  },
+
+  // ─── 6. Report (English) ────────────────────────────────────────────────
+  {
+    id: 'report-en',
+    name: 'Report',
+    englishName: 'Report (English Abitur)',
+    icon: '📄',
+    color: 'cyan',
+    kurz: 'Sachlicher Bericht über ein Ereignis oder Phänomen — neutral, faktenbasiert.',
+    zweck: 'Wenn du als Reporter/Korrespondent einen objektiven Bericht schreiben sollst.',
+    dauer: '~60 min',
+    laenge: '250-300 words',
+    aufbau: [
+      { phase: 'Headline', beschreibung: 'Catchy, informative title.' },
+      { phase: 'Lead', beschreibung: 'Who? What? When? Where? Why? in 1-2 sentences.' },
+      { phase: 'Main body', beschreibung: 'Chronological order or by importance. Facts, not opinions.' },
+      { phase: 'Background', beschreibung: 'Context, history, related facts.' },
+      { phase: 'Conclusion/Outlook', beschreibung: 'Current state + what might happen next (no speculation).' },
+    ],
+    einleitungBeispiel: 'Hundreds of students gathered in Berlin\'s Brandenburg Gate on Friday to demand stronger action against climate change. The peaceful demonstration, organised by the student-led movement Fridays for Future, brought together young people from over 50 schools across the city.',
+    nuetzlichePhrasen: [
+      {
+        kategorie: 'Headline',
+        phrasen: [
+          'STUDENTS RALLY FOR CLIMATE ACTION',
+          'NEW POLICY SPARKS DEBATE',
+          'TECH GIANT ANNOUNCES LAYOFFS',
+        ],
+      },
+      {
+        kategorie: 'Lead (5 Ws)',
+        phrasen: [
+          'Over 1,000 people gathered in… to…',
+          'A new policy announced by… on Tuesday aims to…',
+        ],
+      },
+      {
+        kategorie: 'Body',
+        phrasen: [
+          'According to the organisers, …',
+          'A spokesperson for… confirmed that…',
+          'The figures show a 20% increase in…',
+        ],
+      },
+      {
+        kategorie: 'Outlook',
+        phrasen: [
+          'The future of… remains uncertain.',
+          'Further developments are expected in the coming weeks.',
+        ],
+      },
+    ],
+    tipps: [
+      'Objective tone — keine Adjektive wie „wonderful" oder „terrible".',
+      'Facts, facts, facts — keine Meinung.',
+      'Headline soll Aufmerksamkeit erregen + Hauptinhalt verraten.',
+    ],
+    abiRelevanz: 'Hoch — alternative Aufsatzform im English Abitur.',
+    beispielFrage: '"Write a report on a recent school event for your school magazine."',
+  },
+];
+
+export function getFormatById(id: string): AufsatzFormat | undefined {
+  return aufsatzFormate.find((f) => f.id === id);
 }

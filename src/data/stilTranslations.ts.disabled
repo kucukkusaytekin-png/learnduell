@@ -1,0 +1,78 @@
+// Turkish translations for Stil & Ausdruck module questions.
+
+export interface StilTranslation {
+  prompt: string;
+  explanation: string;
+  solutionSteps?: string[];
+}
+
+export const stilTranslations: Record<string, StilTranslation> = {
+  // ─── Stilregister ───────────────────────────────────────────────────────
+  sr1: {
+    prompt: 'Welches Stilregister passt? "Ey, das war echt krass!" / Hangi Stilregister? "Ey, das war echt krass!"',
+    explanation: 'Umgangssprache: Slang-Ausdrücke („ey", „echt krass"). / Umgangssprache: argo ifadeler („ey", „echt krass").',
+  },
+  sr2: {
+    prompt: 'Welches Stilregister passt? "Diese Entwicklung ist höchst bedenklich." / Hangi Stilregister? "Diese Entwicklung ist höchst bedenklich."',
+    explanation: 'Gehobene Sprache: Fremdwort „höchst", förmliche Adjektive. / Gehobene Sprache: yabancı kelime „höchst", resmi sıfatlar.',
+  },
+  sr3: {
+    prompt: 'Welches Stilregister passt? "Das Wetter ist heute sehr schön." / Hangi Stilregister? "Das Wetter ist heute sehr schön."',
+    explanation: 'Standardsprache: neutral, alltagstauglich, keine Slang. / Standardsprache: tarafsız, günlük kullanıma uygun, argo yok.',
+  },
+
+  // ─── Stilfiguren ─────────────────────────────────────────────────────────
+  sf1: {
+    prompt: 'Welche Stilfigur liegt vor? "Blut, Schweiß und Tränen — das war sein Leben." / Hangi Stilfigur? "Blut, Schweiß und Tränen — das war sein Leben."',
+    explanation: 'Triade: drei gleichberechtigte Glieder. / Triade: üç eşit öğe.',
+  },
+  sf2: {
+    prompt: 'Welche Stilfigur liegt vor? "Die Stadt, die niemals schläft, schläft endlich doch." / Hangi Stilfigur? "Die Stadt, die niemals schläft, schläft endlich doch."',
+    explanation: 'Antithese: Widerspruch — „niemals schläft" vs „schläft doch". / Antithese: çelişki — „hiç uyumaz" vs „yine de uyuyor".',
+  },
+  sf3: {
+    prompt: 'Welche Stilfigur liegt vor? "Er kämpfte, litt und starb für seine Überzeugung." / Hangi Stilfigur? "Er kämpfte, litt und starb für seine Überzeugung."',
+    explanation: 'Klimax: Steigerung — kämpfen (aktiv) → leiden → sterben (endgültig). / Klimax: yükselen dizilim — savaşmak → acı çekmek → ölmek.',
+  },
+  sf4: {
+    prompt: 'Welche Stilfigur liegt vor? "Das Herz Europas schlägt in Brüssel." / Hangi Stilfigur? "Das Herz Europas schlägt in Brüssel."',
+    explanation: 'Personifikation: abstraktes „Herz" wird vermenschlicht („schlägt"). / Personifikation: soyut „Herz" insanlaştırılıyor („schlägt").',
+  },
+  sf5: {
+    prompt: 'Welche Stilfigur liegt vor? "Die Kunst ist lang, und kurz ist unser Leben." / Hangi Stilfigur? "Die Kunst ist lang, und kurz ist unser Leben."',
+    explanation: 'Chiasmus: überkreuzte Satzstellung (AB…BA). / Chiasmus: çapraz söz dizimi (AB…BA).',
+  },
+
+  // ─── Nominalstil ─────────────────────────────────────────────────────────
+  nk1: {
+    prompt: 'Wandle in Nominalstil: "Weil er die Prüfung nicht bestand, war er traurig." / Nominalstil\'e çevir: "Weil er die Prüfung nicht bestand, war er traurig."',
+    explanation: 'Kausal-Verbal → Kausal-Nominal: „Wegen seines Nichtbestehens der Prüfung war er traurig." / Kausal-Verbal → Kausal-Nominal: „Wegen seines Nichtbestehens der Prüfung war er traurig."',
+    solutionSteps: [
+      'Konnektor ersetzen: „weil" → „wegen" + Genitiv. / Konnektor değiştir: „weil" → „wegen" + Genitiv.',
+      'Verb nominalisieren: „nicht bestehen" → „das Nichtbestehen". / Fiili adlaştır: „nicht bestehen" → „das Nichtbestehen".',
+      'Genitiv-Attribut anhängen: „der Prüfung". / Genitiv-Attribut ekle: „der Prüfung".',
+    ],
+  },
+  nk2: {
+    prompt: 'Wandle in Nominalstil: "Obwohl das Wetter schlecht war, gingen wir spazieren." / Nominalstil\'e çevir: "Obwohl das Wetter schlecht war, gingen wir spazieren."',
+    explanation: 'Konzessiv-Verbal → Konzessiv-Nominal: „Trotz des schlechten Wetters gingen wir spazieren." / Konzessiv-Verbal → Konzessiv-Nominal: „Trotz des schlechten Wetters gingen wir spazieren."',
+  },
+  nk3: {
+    prompt: 'Wandle in Nominalstil: "Sie las das Buch und weinte dabei." / Nominalstil\'e çevir: "Sie las das Buch und weinte dabei."',
+    explanation: 'Simultan: „Beim Lesen des Buches weinte sie." / Simultan: „Beim Lesen des Buches weinte sie."',
+  },
+
+  // ─── Satzanfänge ─────────────────────────────────────────────────────────
+  an1: {
+    prompt: 'Welcher Satzanfang ist abwechslungsreich? / Hangi Satzanfang çeşitlidir?',
+    explanation: '"Einerseits … andererseits" — typischer Erörterungs-Anfang. / "Einerseits … andererseits" — tipik Erörterung başlangıcı.',
+  },
+  an2: {
+    prompt: 'Welcher Satzanfang passt zu einer Erörterung? / Erörterung için hangi Satzanfang uygun?',
+    explanation: '"Immer wieder wird diskutiert, ob …" — neutraler, abwechslungsreicher Anfang. / "Immer wieder wird diskutiert, ob …" — tarafsız, çeşitli başlangıç.',
+  },
+};
+
+export function getStilTranslation(id: string): StilTranslation | undefined {
+  return stilTranslations[id];
+}

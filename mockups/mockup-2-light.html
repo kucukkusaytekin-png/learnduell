@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lernduell — Clean Light</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: #fafafa; color: #0a0a0a;
+    min-height: 100vh;
+  }
+  .container { max-width: 1080px; margin: 0 auto; padding: 32px 24px; }
+
+  /* Header */
+  .header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 0; margin-bottom: 48px; border-bottom: 1px solid #e5e5e5;
+  }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 18px; letter-spacing: -0.02em; }
+  .brand-mark {
+    width: 32px; height: 32px; border-radius: 8px; background: #0a0a0a;
+    color: white; display: grid; place-items: center; font-weight: 800; font-size: 14px;
+  }
+  .header-right { display: flex; align-items: center; gap: 16px; }
+  .streak-chip {
+    display: flex; align-items: center; gap: 6px; padding: 6px 12px;
+    background: #fff7ed; border: 1px solid #fed7aa; border-radius: 999px;
+    font-size: 13px; font-weight: 600; color: #c2410c;
+  }
+  .liga-chip {
+    padding: 6px 12px; background: #eff6ff; border: 1px solid #bfdbfe;
+    border-radius: 999px; font-size: 13px; font-weight: 600; color: #1d4ed8;
+  }
+  .avatar {
+    width: 36px; height: 36px; border-radius: 50%; background: #0a0a0a;
+    color: white; display: grid; place-items: center; font-weight: 600; font-size: 14px;
+  }
+
+  /* Hero */
+  .hero {
+    background: white; border: 1px solid #e5e5e5; border-radius: 20px;
+    padding: 48px; margin-bottom: 48px;
+    display: grid; grid-template-columns: 1.5fr 1fr; gap: 48px; align-items: center;
+  }
+  .hero h1 {
+    font-size: 40px; font-weight: 700; letter-spacing: -0.03em; line-height: 1.1;
+    margin-bottom: 16px;
+  }
+  .hero p { color: #525252; font-size: 16px; line-height: 1.6; margin-bottom: 24px; }
+  .cta {
+    background: #0a0a0a; color: white; border: none; padding: 14px 28px;
+    border-radius: 10px; font-size: 15px; font-weight: 600; cursor: pointer;
+    display: inline-flex; align-items: center; gap: 8px;
+    transition: background 0.15s;
+  }
+  .cta:hover { background: #262626; }
+
+  .xp-panel {
+    background: #fafafa; border: 1px solid #e5e5e5; border-radius: 12px;
+    padding: 24px;
+  }
+  .xp-row { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 12px; }
+  .xp-label { font-size: 13px; color: #737373; }
+  .xp-value { font-size: 18px; font-weight: 700; letter-spacing: -0.01em; }
+  .bar { height: 8px; background: #f5f5f5; border-radius: 999px; overflow: hidden; }
+  .bar-fill { height: 100%; background: #0a0a0a; border-radius: 999px; }
+
+  /* Section title */
+  .section-title {
+    font-size: 13px; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.08em; color: #737373; margin-bottom: 16px;
+  }
+
+  /* Modules */
+  .modules { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 64px; }
+  .module {
+    background: white; border: 1px solid #e5e5e5; border-radius: 14px;
+    padding: 24px; cursor: pointer; transition: all 0.15s;
+  }
+  .module:hover { border-color: #0a0a0a; transform: translateY(-2px); }
+  .module-icon {
+    width: 40px; height: 40px; border-radius: 10px; display: grid; place-items: center;
+    font-size: 20px; margin-bottom: 16px;
+  }
+  .mi-deutsch { background: #fef3c7; color: #92400e; }
+  .mi-mathe { background: #dbeafe; color: #1e40af; }
+  .mi-englisch { background: #d1fae5; color: #065f46; }
+  .module h3 { font-size: 17px; font-weight: 600; margin-bottom: 6px; letter-spacing: -0.01em; }
+  .module p { font-size: 13px; color: #737373; line-height: 1.5; }
+  .module-bar { height: 4px; background: #f5f5f5; border-radius: 2px; margin-top: 16px; overflow: hidden; }
+  .module-bar-fill { height: 100%; border-radius: 2px; }
+  .mbf-deutsch { background: #f59e0b; width: 45%; }
+  .mbf-mathe { background: #3b82f6; width: 20%; }
+  .mbf-englisch { background: #10b981; width: 0%; }
+
+  /* Quiz */
+  .quiz {
+    background: white; border: 1px solid #e5e5e5; border-radius: 20px;
+    padding: 40px; margin-bottom: 32px;
+  }
+  .matchup {
+    display: flex; align-items: center; justify-content: space-between;
+    padding-bottom: 24px; margin-bottom: 24px; border-bottom: 1px solid #f5f5f5;
+  }
+  .player { display: flex; align-items: center; gap: 12px; }
+  .p-avatar {
+    width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center;
+    font-weight: 700; color: white;
+  }
+  .p-you { background: #0a0a0a; }
+  .p-bot { background: linear-gradient(135deg, #737373, #404040); }
+  .p-info .p-name { font-size: 13px; font-weight: 600; }
+  .p-info .p-score { font-size: 22px; font-weight: 700; letter-spacing: -0.02em; }
+
+  .vs {
+    padding: 8px 16px; background: #f5f5f5; border-radius: 8px;
+    font-weight: 800; font-size: 13px; letter-spacing: 0.05em;
+  }
+
+  .timer-display {
+    text-align: center; padding: 24px; background: #fafafa;
+    border-radius: 12px; margin-bottom: 24px; border: 1px solid #f5f5f5;
+  }
+  .timer-display .t-label { font-size: 11px; color: #737373; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px; }
+  .timer-display .t-value { font-size: 56px; font-weight: 700; letter-spacing: -0.04em; font-variant-numeric: tabular-nums; }
+  .timer-display .t-bar { height: 4px; background: #e5e5e5; border-radius: 2px; margin-top: 16px; overflow: hidden; }
+  .timer-display .t-bar-fill { height: 100%; background: #0a0a0a; border-radius: 2px; width: 65%; }
+
+  .question {
+    padding: 32px; background: #fafafa; border: 1px solid #f5f5f5;
+    border-radius: 14px; margin-bottom: 20px;
+  }
+  .q-tag {
+    display: inline-block; padding: 4px 10px; background: white;
+    border: 1px solid #e5e5e5; border-radius: 6px;
+    font-size: 11px; font-weight: 600; color: #525252;
+    text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 16px;
+  }
+  .q-text { font-size: 20px; line-height: 1.6; font-weight: 500; }
+  .q-text .hl { background: #fef3c7; padding: 2px 6px; border-radius: 4px; font-weight: 700; }
+  .q-text .blank {
+    display: inline-block; min-width: 120px; border-bottom: 2px solid #0a0a0a;
+    margin: 0 4px; text-align: center;
+  }
+
+  .options { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .opt {
+    padding: 18px 20px; background: white; border: 1.5px solid #e5e5e5;
+    border-radius: 10px; cursor: pointer; transition: all 0.15s;
+    display: flex; align-items: center; gap: 12px; font-size: 15px;
+  }
+  .opt:hover { border-color: #0a0a0a; }
+  .opt-key {
+    width: 28px; height: 28px; border-radius: 6px;
+    background: #f5f5f5; display: grid; place-items: center;
+    font-weight: 700; font-size: 12px;
+  }
+
+  /* Result */
+  .result {
+    background: white; border: 1px solid #e5e5e5; border-radius: 20px;
+    padding: 56px 48px; text-align: center;
+  }
+  .result-icon { font-size: 56px; margin-bottom: 16px; }
+  .result-title { font-size: 36px; font-weight: 700; letter-spacing: -0.03em; margin-bottom: 8px; }
+  .result-sub { color: #737373; font-size: 15px; margin-bottom: 40px; }
+  .result-stats {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
+    margin-bottom: 32px;
+  }
+  .r-stat {
+    background: #fafafa; border: 1px solid #f5f5f5;
+    border-radius: 12px; padding: 20px;
+  }
+  .r-stat .v { font-size: 24px; font-weight: 700; letter-spacing: -0.02em; }
+  .r-stat .l { font-size: 12px; color: #737373; margin-top: 4px; }
+
+  .actions { display: flex; gap: 12px; justify-content: center; }
+  .btn-ghost {
+    background: white; color: #0a0a0a; border: 1.5px solid #e5e5e5;
+    padding: 12px 24px; border-radius: 10px; font-weight: 600; font-size: 14px;
+    cursor: pointer;
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <div class="brand">
+        <div class="brand-mark">L</div>
+        Lernduell
+      </div>
+      <div class="header-right">
+        <div class="streak-chip">🔥 12 Tage Streak</div>
+        <div class="liga-chip">Silver Liga</div>
+        <div class="avatar">AY</div>
+      </div>
+    </div>
+
+    <!-- Hero -->
+    <div class="hero">
+      <div>
+        <h1>Bereit für das nächste Duell?</h1>
+        <p>Fordere Bot-Rivalen heraus, sammle Erfahrungspunkte und steige Woche für Woche in eine höhere Liga auf.</p>
+        <button class="cta">Duell starten →</button>
+      </div>
+      <div class="xp-panel">
+        <div class="xp-row">
+          <span class="xp-label">Level 7</span>
+          <span class="xp-value">1.240 / 2.000 XP</span>
+        </div>
+        <div class="bar"><div class="bar-fill" style="width:62%"></div></div>
+      </div>
+    </div>
+
+    <div class="section-title">Module</div>
+    <div class="modules">
+      <div class="module">
+        <div class="module-icon mi-deutsch">📚</div>
+        <h3>Satzaufbau</h3>
+        <p>Konnektoren, Relativsätze, Satzglieder, Passiv & Konjunktiv</p>
+        <div class="module-bar"><div class="module-bar-fill mbf-deutsch"></div></div>
+      </div>
+      <div class="module">
+        <div class="module-icon mi-mathe">📐</div>
+        <h3>Mathematik</h3>
+        <p>Analyse, Lineare Algebra, Stochastik</p>
+        <div class="module-bar"><div class="module-bar-fill mbf-mathe"></div></div>
+      </div>
+      <div class="module">
+        <div class="module-icon mi-englisch">🌍</div>
+        <h3>Englisch</h3>
+        <p>Coming Soon</p>
+        <div class="module-bar"><div class="module-bar-fill mbf-englisch"></div></div>
+      </div>
+    </div>
+
+    <!-- Quiz -->
+    <div class="section-title">Quiz-Duell (Vorschau)</div>
+    <div class="quiz">
+      <div class="matchup">
+        <div class="player">
+          <div class="p-avatar p-you">AY</div>
+          <div class="p-info">
+            <div class="p-name">Ayşe (Du)</div>
+            <div class="p-score">850</div>
+          </div>
+        </div>
+        <div class="vs">VS</div>
+        <div class="player">
+          <div class="p-avatar p-bot">🤖</div>
+          <div class="p-info">
+            <div class="p-name">Bot "Max"</div>
+            <div class="p-score">720</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="timer-display">
+        <div class="t-label">Verbleibende Zeit</div>
+        <div class="t-value">00:13</div>
+        <div class="t-bar"><div class="t-bar-fill"></div></div>
+      </div>
+
+      <div class="question">
+        <div class="q-tag">Frage 7 / 10 · Konnektoren</div>
+        <div class="q-text">
+          Wähle den passenden Konnektor:<br><br>
+          <span class="hl">___</span> es regnet, gehen wir spazieren.
+        </div>
+      </div>
+
+      <div class="options">
+        <div class="opt"><div class="opt-key">A</div> Weil</div>
+        <div class="opt"><div class="opt-key">B</div> Dass</div>
+        <div class="opt"><div class="opt-key">C</div> Obwohl</div>
+        <div class="opt"><div class="opt-key">D</div> Wenn</div>
+      </div>
+    </div>
+
+    <!-- Result -->
+    <div class="section-title">Ergebnis (Vorschau)</div>
+    <div class="result">
+      <div class="result-icon">🏆</div>
+      <div class="result-title">Geschafft — Sieg!</div>
+      <div class="result-sub">Du hast "Max" mit 850 : 720 besiegt</div>
+
+      <div class="result-stats">
+        <div class="r-stat"><div class="v">+180</div><div class="l">XP erhalten</div></div>
+        <div class="r-stat"><div class="v">8 / 10</div><div class="l">Richtig beantwortet</div></div>
+        <div class="r-stat"><div class="v">4,2s</div><div class="l">Ø Antwortzeit</div></div>
+        <div class="r-stat"><div class="v">🔥 12</div><div class="l">Tage Streak</div></div>
+      </div>
+
+      <div class="actions">
+        <button class="cta">Nochmal spielen</button>
+        <button class="btn-ghost">Zur Übersicht</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

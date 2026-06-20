@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lernduell — Dark Modern</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: #0a0e1a;
+    color: #e6e9f2;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+  .glow-orb {
+    position: fixed; pointer-events: none; border-radius: 50%;
+    filter: blur(120px); opacity: 0.4; z-index: 0;
+  }
+  .orb-1 { width: 500px; height: 500px; background: #6366f1; top: -200px; left: -100px; }
+  .orb-2 { width: 400px; height: 400px; background: #06b6d4; bottom: -100px; right: -50px; }
+  .container { max-width: 1100px; margin: 0 auto; padding: 24px; position: relative; z-index: 1; }
+
+  /* Header */
+  .header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 24px; background: rgba(22, 27, 44, 0.6);
+    backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 18px; margin-bottom: 32px;
+  }
+  .brand { display: flex; align-items: center; gap: 12px; font-weight: 700; font-size: 20px; }
+  .brand-icon {
+    width: 36px; height: 36px; border-radius: 10px;
+    background: linear-gradient(135deg, #6366f1 0%, #06b6d4 100%);
+    display: grid; place-items: center; font-size: 18px;
+  }
+  .user-info { display: flex; align-items: center; gap: 16px; }
+  .avatar {
+    width: 40px; height: 40px; border-radius: 50%;
+    background: linear-gradient(135deg, #f59e0b, #ef4444);
+    display: grid; place-items: center; font-weight: 700;
+  }
+  .xp-bar {
+    width: 160px; height: 8px; background: rgba(255,255,255,0.1);
+    border-radius: 4px; overflow: hidden; position: relative;
+  }
+  .xp-fill { height: 100%; background: linear-gradient(90deg, #6366f1, #06b6d4); border-radius: 4px; }
+  .xp-label { font-size: 12px; color: #94a3b8; margin-bottom: 4px; }
+  .streak-badge {
+    display: flex; align-items: center; gap: 6px; padding: 6px 12px;
+    background: rgba(245, 158, 11, 0.15); border: 1px solid rgba(245, 158, 11, 0.3);
+    border-radius: 20px; color: #fbbf24; font-weight: 600; font-size: 14px;
+  }
+  .liga-badge {
+    padding: 6px 12px; background: rgba(99, 102, 241, 0.15);
+    border: 1px solid rgba(99, 102, 241, 0.3); border-radius: 20px;
+    color: #a5b4fc; font-weight: 600; font-size: 14px;
+  }
+
+  /* Section title */
+  .section-label {
+    font-size: 12px; text-transform: uppercase; letter-spacing: 1.5px;
+    color: #64748b; margin: 32px 0 16px; font-weight: 600;
+  }
+
+  /* Hero card */
+  .hero {
+    background: linear-gradient(135deg, rgba(99,102,241,0.2), rgba(6,182,212,0.2));
+    border: 1px solid rgba(99,102,241,0.3); border-radius: 24px;
+    padding: 40px; position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(circle at 80% 20%, rgba(99,102,241,0.3), transparent 50%);
+  }
+  .hero-content { position: relative; z-index: 1; max-width: 600px; }
+  .hero h1 {
+    font-size: 36px; font-weight: 800; margin-bottom: 12px;
+    background: linear-gradient(135deg, #fff, #94a3b8);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .hero p { color: #94a3b8; font-size: 16px; margin-bottom: 24px; line-height: 1.6; }
+  .cta-btn {
+    background: linear-gradient(135deg, #6366f1, #06b6d4);
+    color: white; border: none; padding: 14px 32px;
+    border-radius: 12px; font-size: 16px; font-weight: 700;
+    cursor: pointer; box-shadow: 0 8px 24px rgba(99,102,241,0.4);
+    transition: transform 0.2s;
+  }
+  .cta-btn:hover { transform: translateY(-2px); }
+
+  /* Module grid */
+  .modules { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 16px; }
+  .module-card {
+    background: rgba(22, 27, 44, 0.6); backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.05); border-radius: 16px;
+    padding: 24px; transition: all 0.2s; cursor: pointer;
+  }
+  .module-card:hover { border-color: rgba(99,102,241,0.5); transform: translateY(-4px); }
+  .module-icon {
+    width: 48px; height: 48px; border-radius: 12px;
+    display: grid; place-items: center; font-size: 24px; margin-bottom: 16px;
+  }
+  .icon-deutsch { background: linear-gradient(135deg, #ec4899, #f59e0b); }
+  .icon-mathe { background: linear-gradient(135deg, #06b6d4, #3b82f6); }
+  .icon-englisch { background: linear-gradient(135deg, #10b981, #14b8a6); }
+  .module-card h3 { font-size: 18px; margin-bottom: 6px; }
+  .module-card p { color: #94a3b8; font-size: 13px; line-height: 1.5; }
+  .progress {
+    margin-top: 16px; height: 4px; background: rgba(255,255,255,0.1);
+    border-radius: 2px; overflow: hidden;
+  }
+  .progress-fill { height: 100%; border-radius: 2px; }
+
+  /* Quiz Screen */
+  .quiz-screen {
+    margin-top: 64px; background: rgba(22, 27, 44, 0.7);
+    backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 24px; padding: 32px;
+  }
+  .quiz-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 32px;
+  }
+  .player {
+    display: flex; align-items: center; gap: 12px; flex: 1;
+  }
+  .player.you { justify-content: flex-start; }
+  .player.bot { justify-content: flex-end; flex-direction: row-reverse; }
+  .player-avatar {
+    width: 48px; height: 48px; border-radius: 50%;
+    display: grid; place-items: center; font-weight: 700;
+    border: 2px solid;
+  }
+  .you-avatar { background: linear-gradient(135deg, #f59e0b, #ef4444); border-color: #fbbf24; }
+  .bot-avatar { background: linear-gradient(135deg, #475569, #1e293b); border-color: #64748b; }
+  .player-info { display: flex; flex-direction: column; }
+  .player.you .player-info { align-items: flex-start; }
+  .player.bot .player-info { align-items: flex-end; }
+  .player-name { font-weight: 700; font-size: 14px; }
+  .player-score { font-size: 24px; font-weight: 800; color: #fbbf24; }
+
+  .vs-badge {
+    width: 60px; height: 60px; border-radius: 50%;
+    background: linear-gradient(135deg, #ef4444, #ec4899);
+    display: grid; place-items: center; font-weight: 900; font-size: 20px;
+    margin: 0 16px; box-shadow: 0 0 32px rgba(239,68,68,0.4);
+  }
+
+  .timer-wrap {
+    background: rgba(0,0,0,0.3); border-radius: 16px;
+    padding: 16px 24px; text-align: center; margin-bottom: 24px;
+    border: 1px solid rgba(255,255,255,0.05);
+  }
+  .timer-label { font-size: 11px; color: #64748b; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+  .timer-value {
+    font-size: 48px; font-weight: 900; font-variant-numeric: tabular-nums;
+    background: linear-gradient(135deg, #fbbf24, #f59e0b);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .timer-bar {
+    height: 6px; background: rgba(255,255,255,0.1); border-radius: 3px;
+    margin-top: 12px; overflow: hidden;
+  }
+  .timer-bar-fill {
+    height: 100%; background: linear-gradient(90deg, #6366f1, #06b6d4);
+    border-radius: 3px; width: 65%; transition: width 1s linear;
+  }
+
+  .question-card {
+    background: linear-gradient(135deg, rgba(99,102,241,0.15), rgba(6,182,212,0.05));
+    border: 1px solid rgba(99,102,241,0.2); border-radius: 16px;
+    padding: 32px; margin-bottom: 24px;
+  }
+  .question-tag {
+    display: inline-block; padding: 4px 12px; background: rgba(236,72,153,0.2);
+    border-radius: 6px; color: #f9a8d4; font-size: 12px; font-weight: 600;
+    margin-bottom: 16px;
+  }
+  .question-text {
+    font-size: 22px; line-height: 1.5; font-weight: 600;
+  }
+  .question-text .hl { color: #fbbf24; font-weight: 800; }
+  .question-text .blank {
+    display: inline-block; min-width: 100px; border-bottom: 3px solid #6366f1;
+    text-align: center; color: transparent;
+  }
+
+  .options { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .option {
+    padding: 18px 24px; background: rgba(22, 27, 44, 0.8);
+    border: 2px solid rgba(255,255,255,0.08); border-radius: 12px;
+    cursor: pointer; transition: all 0.15s; font-size: 16px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .option:hover { border-color: #6366f1; background: rgba(99,102,241,0.1); }
+  .option-key {
+    width: 32px; height: 32px; border-radius: 8px;
+    background: rgba(255,255,255,0.05); display: grid; place-items: center;
+    font-weight: 700; font-size: 14px;
+  }
+
+  /* Result Screen */
+  .result-screen {
+    margin-top: 64px; background: linear-gradient(135deg, rgba(245,158,11,0.1), rgba(239,68,68,0.1));
+    border: 1px solid rgba(245,158,11,0.3); border-radius: 24px;
+    padding: 48px; text-align: center;
+  }
+  .result-trophy { font-size: 64px; margin-bottom: 16px; }
+  .result-title {
+    font-size: 42px; font-weight: 900; margin-bottom: 8px;
+    background: linear-gradient(135deg, #fbbf24, #f59e0b);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .result-subtitle { color: #94a3b8; margin-bottom: 32px; }
+  .stats-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
+    margin: 32px 0;
+  }
+  .stat-card {
+    background: rgba(22, 27, 44, 0.6); border-radius: 12px;
+    padding: 20px;
+  }
+  .stat-value { font-size: 28px; font-weight: 800; color: #fbbf24; }
+  .stat-label { font-size: 12px; color: #64748b; margin-top: 4px; }
+
+  .actions { display: flex; gap: 12px; justify-content: center; }
+  .btn-secondary {
+    background: rgba(255,255,255,0.05); color: #e6e9f2;
+    border: 1px solid rgba(255,255,255,0.1); padding: 12px 24px;
+    border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer;
+  }
+</style>
+</head>
+<body>
+  <div class="glow-orb orb-1"></div>
+  <div class="glow-orb orb-2"></div>
+
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <div class="brand">
+        <div class="brand-icon">⚔️</div>
+        Lernduell
+      </div>
+      <div class="user-info">
+        <div>
+          <div class="xp-label">Lvl 7 · 1.240 / 2.000 XP</div>
+          <div class="xp-bar"><div class="xp-fill" style="width:62%"></div></div>
+        </div>
+        <div class="streak-badge">🔥 12 Tage</div>
+        <div class="liga-badge">🥈 Silver</div>
+        <div class="avatar">AY</div>
+      </div>
+    </div>
+
+    <!-- Hero -->
+    <div class="hero">
+      <div class="hero-content">
+        <h1>Bereit für das Duell?</h1>
+        <p>Tritt gegen Bot-Rivalen an, sammle XP und steige in der Liga auf. Täglich neue Fragen — Satzaufbau, Mathematik und mehr.</p>
+        <button class="cta-btn">⚡ Duell starten</button>
+      </div>
+    </div>
+
+    <div class="section-label">Module</div>
+    <div class="modules">
+      <div class="module-card">
+        <div class="module-icon icon-deutsch">📚</div>
+        <h3>Satzaufbau</h3>
+        <p>Konnektoren, Relativsätze, Satzglieder</p>
+        <div class="progress"><div class="progress-fill" style="width:45%;background:linear-gradient(90deg,#ec4899,#f59e0b)"></div></div>
+      </div>
+      <div class="module-card">
+        <div class="module-icon icon-mathe">📐</div>
+        <h3>Mathematik</h3>
+        <p>Analyse, Lineare Algebra, Stochastik</p>
+        <div class="progress"><div class="progress-fill" style="width:20%;background:linear-gradient(90deg,#06b6d4,#3b82f6)"></div></div>
+      </div>
+      <div class="module-card">
+        <div class="module-icon icon-englisch">🌍</div>
+        <h3>Englisch</h3>
+        <p>Coming Soon</p>
+        <div class="progress"><div class="progress-fill" style="width:0%"></div></div>
+      </div>
+    </div>
+
+    <!-- Quiz Screen Demo -->
+    <div class="section-label">Quiz-Duell (Vorschau)</div>
+    <div class="quiz-screen">
+      <div class="quiz-header">
+        <div class="player you">
+          <div class="player-avatar you-avatar">AY</div>
+          <div class="player-info">
+            <div class="player-name">Ayşe (Du)</div>
+            <div class="player-score">850</div>
+          </div>
+        </div>
+        <div class="vs-badge">VS</div>
+        <div class="player bot">
+          <div class="player-avatar bot-avatar">🤖</div>
+          <div class="player-info">
+            <div class="player-name">Bot-Rival "Max"</div>
+            <div class="player-score">720</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="timer-wrap">
+        <div class="timer-label">Verbleibende Zeit</div>
+        <div class="timer-value">00:13</div>
+        <div class="timer-bar"><div class="timer-bar-fill"></div></div>
+      </div>
+
+      <div class="question-card">
+        <div class="question-tag">Frage 7 von 10 · Konnektoren</div>
+        <div class="question-text">
+          Wähle den passenden Konnektor:<br><br>
+          <span class="hl">___</span> es regnet, gehen wir spazieren.
+        </div>
+      </div>
+
+      <div class="options">
+        <div class="option"><div class="option-key">A</div> Weil</div>
+        <div class="option"><div class="option-key">B</div> Dass</div>
+        <div class="option"><div class="option-key">C</div> Obwohl</div>
+        <div class="option"><div class="option-key">D</div> Wenn</div>
+      </div>
+    </div>
+
+    <!-- Result Screen Demo -->
+    <div class="section-label">Ergebnis (Vorschau)</div>
+    <div class="result-screen">
+      <div class="result-trophy">🏆</div>
+      <div class="result-title">SIEG!</div>
+      <div class="result-subtitle">Du hast Bot "Max" mit 850:720 besiegt</div>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-value">+180</div>
+          <div class="stat-label">XP erhalten</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">8/10</div>
+          <div class="stat-label">Richtig</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">4.2s</div>
+          <div class="stat-label">Ø Antwortzeit</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">🔥 12</div>
+          <div class="stat-label">Streak-Tage</div>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button class="cta-btn">Nochmal spielen</button>
+        <button class="btn-secondary">Zur Übersicht</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

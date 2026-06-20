@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lernduell — Energetic Colorful</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Nunito', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: #fef6e4;
+    color: #1a1a2e;
+    min-height: 100vh;
+    background-image:
+      radial-gradient(circle at 10% 0%, #ffd6a5 0%, transparent 30%),
+      radial-gradient(circle at 90% 100%, #b8e0d2 0%, transparent 30%);
+  }
+  .container { max-width: 1080px; margin: 0 auto; padding: 32px 24px; }
+
+  /* Header */
+  .header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 32px;
+  }
+  .brand { display: flex; align-items: center; gap: 12px; font-weight: 900; font-size: 24px; letter-spacing: -0.02em; }
+  .brand-mark {
+    width: 48px; height: 48px; border-radius: 14px;
+    background: linear-gradient(135deg, #ff6b6b, #ffa94d);
+    color: white; display: grid; place-items: center; font-size: 24px;
+    box-shadow: 0 6px 0 #c92a2a;
+  }
+  .header-right { display: flex; align-items: center; gap: 12px; }
+  .chip {
+    padding: 10px 16px; border-radius: 14px; font-weight: 800;
+    font-size: 14px; border: 3px solid; display: flex; align-items: center; gap: 6px;
+  }
+  .chip-streak { background: #fff3bf; border-color: #f59f00; color: #c97c00; }
+  .chip-liga { background: #e7f5ff; border-color: #1c7ed6; color: #1864ab; }
+  .avatar {
+    width: 48px; height: 48px; border-radius: 50%;
+    background: linear-gradient(135deg, #ff6b6b, #ffa94d);
+    color: white; display: grid; place-items: center;
+    font-weight: 900; font-size: 18px; border: 3px solid white;
+    box-shadow: 0 4px 0 #c92a2a;
+  }
+
+  /* Hero */
+  .hero {
+    background: linear-gradient(135deg, #fff 0%, #fff8e7 100%);
+    border: 4px solid #1a1a2e; border-radius: 28px;
+    padding: 40px; margin-bottom: 32px;
+    display: grid; grid-template-columns: 1.5fr 1fr; gap: 32px; align-items: center;
+    box-shadow: 0 8px 0 #1a1a2e;
+  }
+  .hero h1 { font-size: 40px; font-weight: 900; letter-spacing: -0.03em; line-height: 1.05; margin-bottom: 16px; }
+  .hero h1 .accent { color: #ff6b6b; }
+  .hero p { font-size: 16px; line-height: 1.6; color: #495057; margin-bottom: 24px; font-weight: 600; }
+  .cta {
+    background: #51cf66; color: white; border: 4px solid #1a1a2e;
+    padding: 16px 32px; border-radius: 16px; font-size: 18px; font-weight: 900;
+    cursor: pointer; box-shadow: 0 6px 0 #1a1a2e; transition: transform 0.1s;
+    display: inline-flex; align-items: center; gap: 10px;
+  }
+  .cta:hover { transform: translateY(-2px); box-shadow: 0 8px 0 #1a1a2e; }
+  .cta:active { transform: translateY(2px); box-shadow: 0 2px 0 #1a1a2e; }
+
+  .xp-card {
+    background: #fff; border: 4px solid #1a1a2e; border-radius: 20px;
+    padding: 20px; box-shadow: 0 6px 0 #1a1a2e;
+  }
+  .xp-card .row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+  .xp-card .lvl { font-weight: 900; font-size: 18px; }
+  .xp-card .badge { background: #ffd43b; padding: 4px 10px; border-radius: 8px; font-weight: 800; font-size: 12px; }
+  .xp-card .bar { height: 16px; background: #f1f3f5; border-radius: 999px; overflow: hidden; border: 2px solid #1a1a2e; }
+  .xp-card .bar-fill { height: 100%; background: linear-gradient(90deg, #51cf66, #69db7c); width: 62%; }
+
+  /* Modules */
+  .section-title { font-size: 24px; font-weight: 900; margin: 32px 0 20px; letter-spacing: -0.02em; }
+  .modules { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 48px; }
+  .module {
+    border: 4px solid #1a1a2e; border-radius: 24px; padding: 28px;
+    cursor: pointer; transition: transform 0.15s; box-shadow: 0 8px 0 #1a1a2e;
+  }
+  .module:hover { transform: translateY(-4px); box-shadow: 0 12px 0 #1a1a2e; }
+  .m-deutsch { background: linear-gradient(135deg, #ffe0e0, #ffd8a8); }
+  .m-mathe { background: linear-gradient(135deg, #d0ebff, #bac8ff); }
+  .m-englisch { background: linear-gradient(135deg, #d3f9d8, #b2f2bb); }
+  .module .emoji {
+    width: 64px; height: 64px; border-radius: 18px; background: white;
+    border: 4px solid #1a1a2e; display: grid; place-items: center;
+    font-size: 32px; margin-bottom: 16px;
+  }
+  .module h3 { font-size: 22px; font-weight: 900; margin-bottom: 6px; letter-spacing: -0.02em; }
+  .module p { font-size: 13px; color: #495057; font-weight: 700; line-height: 1.5; }
+  .module .bar { height: 12px; background: white; border-radius: 999px; overflow: hidden; margin-top: 16px; border: 2px solid #1a1a2e; }
+  .module .bar-fill { height: 100%; }
+  .bf-deutsch { background: #ff6b6b; width: 45%; }
+  .bf-mathe { background: #4dabf7; width: 20%; }
+  .bf-englisch { background: #51cf66; width: 0%; }
+
+  /* Quiz */
+  .quiz {
+    background: white; border: 4px solid #1a1a2e; border-radius: 28px;
+    padding: 32px; margin-bottom: 32px; box-shadow: 0 8px 0 #1a1a2e;
+  }
+  .matchup { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; }
+  .player { display: flex; align-items: center; gap: 12px; }
+  .p-avatar {
+    width: 56px; height: 56px; border-radius: 50%; display: grid; place-items: center;
+    font-weight: 900; color: white; font-size: 18px; border: 4px solid #1a1a2e;
+  }
+  .p-you { background: linear-gradient(135deg, #ff6b6b, #ffa94d); }
+  .p-bot { background: linear-gradient(135deg, #868e96, #495057); }
+  .p-name { font-weight: 800; font-size: 14px; }
+  .p-score { font-size: 26px; font-weight: 900; color: #ff6b6b; }
+
+  .vs {
+    width: 56px; height: 56px; border-radius: 50%; background: #ffd43b;
+    border: 4px solid #1a1a2e; display: grid; place-items: center;
+    font-weight: 900; font-size: 16px; color: #1a1a2e;
+  }
+
+  .timer-card {
+    background: #fff3bf; border: 4px solid #1a1a2e; border-radius: 20px;
+    padding: 24px; text-align: center; margin-bottom: 24px;
+  }
+  .timer-card .l { font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: #c97c00; margin-bottom: 8px; }
+  .timer-card .v { font-size: 64px; font-weight: 900; letter-spacing: -0.04em; color: #c97c00; }
+  .timer-card .bar { height: 14px; background: white; border: 3px solid #1a1a2e; border-radius: 999px; overflow: hidden; margin-top: 12px; }
+  .timer-card .bar-fill { height: 100%; background: linear-gradient(90deg, #ff6b6b, #ffd43b); width: 65%; }
+
+  .question {
+    background: #f8f9fa; border: 4px solid #1a1a2e; border-radius: 20px;
+    padding: 28px; margin-bottom: 20px;
+  }
+  .q-tag {
+    display: inline-block; padding: 6px 12px; background: #ffd43b;
+    border: 3px solid #1a1a2e; border-radius: 8px; font-size: 11px;
+    font-weight: 900; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 16px;
+  }
+  .q-text { font-size: 22px; line-height: 1.5; font-weight: 700; }
+  .q-text .hl { background: #ffd43b; padding: 2px 8px; border-radius: 6px; }
+  .q-text .blank {
+    display: inline-block; min-width: 120px; border-bottom: 4px dashed #ff6b6b;
+    margin: 0 4px; text-align: center;
+  }
+
+  .options { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .opt {
+    padding: 20px 24px; background: white; border: 4px solid #1a1a2e;
+    border-radius: 16px; cursor: pointer; font-size: 16px; font-weight: 700;
+    display: flex; align-items: center; gap: 12px;
+    box-shadow: 0 4px 0 #1a1a2e; transition: transform 0.1s;
+  }
+  .opt:hover { transform: translateY(-2px); box-shadow: 0 6px 0 #1a1a2e; }
+  .opt:active { transform: translateY(2px); box-shadow: 0 1px 0 #1a1a2e; }
+  .opt-key {
+    width: 36px; height: 36px; border-radius: 10px;
+    background: #ffd43b; border: 3px solid #1a1a2e;
+    display: grid; place-items: center; font-weight: 900; font-size: 14px;
+  }
+
+  /* Result */
+  .result {
+    background: linear-gradient(135deg, #ffd43b, #ffa94d);
+    border: 4px solid #1a1a2e; border-radius: 28px;
+    padding: 56px 48px; text-align: center; box-shadow: 0 8px 0 #1a1a2e;
+  }
+  .result-emoji { font-size: 80px; margin-bottom: 16px; }
+  .result-title { font-size: 42px; font-weight: 900; letter-spacing: -0.03em; margin-bottom: 8px; }
+  .result-sub { font-size: 16px; font-weight: 700; margin-bottom: 32px; opacity: 0.8; }
+  .result-stats {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 32px;
+  }
+  .r-stat {
+    background: white; border: 4px solid #1a1a2e; border-radius: 16px;
+    padding: 20px; box-shadow: 0 4px 0 #1a1a2e;
+  }
+  .r-stat .v { font-size: 26px; font-weight: 900; }
+  .r-stat .l { font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; margin-top: 4px; opacity: 0.7; }
+  .actions { display: flex; gap: 12px; justify-content: center; }
+  .btn-light {
+    background: white; color: #1a1a2e; border: 4px solid #1a1a2e;
+    padding: 14px 28px; border-radius: 14px; font-weight: 900; font-size: 15px;
+    cursor: pointer; box-shadow: 0 4px 0 #1a1a2e;
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="brand">
+        <div class="brand-mark">⚔️</div>
+        Lernduell
+      </div>
+      <div class="header-right">
+        <div class="chip chip-streak">🔥 12 Tage</div>
+        <div class="chip chip-liga">🥈 Silver</div>
+        <div class="avatar">AY</div>
+      </div>
+    </div>
+
+    <div class="hero">
+      <div>
+        <h1>Bereit für das <span class="accent">Duell?</span></h1>
+        <p>Spiele gegen Bot-Rivalen, sammle XP und klettere die Liga hoch! ⚡</p>
+        <button class="cta">⚡ Duell starten</button>
+      </div>
+      <div class="xp-card">
+        <div class="row">
+          <div class="lvl">Level 7</div>
+          <div class="badge">⭐ PRO</div>
+        </div>
+        <div style="font-size:13px;font-weight:700;margin-bottom:6px;">1.240 / 2.000 XP</div>
+        <div class="bar"><div class="bar-fill"></div></div>
+      </div>
+    </div>
+
+    <div class="section-title">📚 Module</div>
+    <div class="modules">
+      <div class="module m-deutsch">
+        <div class="emoji">📖</div>
+        <h3>Satzaufbau</h3>
+        <p>Konnektoren, Relativsätze, Satzglieder</p>
+        <div class="bar"><div class="bar-fill bf-deutsch"></div></div>
+      </div>
+      <div class="module m-mathe">
+        <div class="emoji">🧮</div>
+        <h3>Mathematik</h3>
+        <p>Analyse, Algebra, Stochastik</p>
+        <div class="bar"><div class="bar-fill bf-mathe"></div></div>
+      </div>
+      <div class="module m-englisch">
+        <div class="emoji">🌍</div>
+        <h3>Englisch</h3>
+        <p>Coming Soon</p>
+        <div class="bar"><div class="bar-fill bf-englisch"></div></div>
+      </div>
+    </div>
+
+    <div class="section-title">⚔️ Quiz-Duell</div>
+    <div class="quiz">
+      <div class="matchup">
+        <div class="player">
+          <div class="p-avatar p-you">AY</div>
+          <div>
+            <div class="p-name">Ayşe (Du)</div>
+            <div class="p-score">850</div>
+          </div>
+        </div>
+        <div class="vs">VS</div>
+        <div class="player">
+          <div class="p-avatar p-bot">🤖</div>
+          <div>
+            <div class="p-name">Bot "Max"</div>
+            <div class="p-score">720</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="timer-card">
+        <div class="l">Verbleibende Zeit</div>
+        <div class="v">00:13</div>
+        <div class="bar"><div class="bar-fill"></div></div>
+      </div>
+
+      <div class="question">
+        <div class="q-tag">Frage 7 / 10 · Konnektoren</div>
+        <div class="q-text">
+          Wähle den passenden Konnektor:<br><br>
+          <span class="hl">___</span> es regnet, gehen wir spazieren.
+        </div>
+      </div>
+
+      <div class="options">
+        <div class="opt"><div class="opt-key">A</div> Weil</div>
+        <div class="opt"><div class="opt-key">B</div> Dass</div>
+        <div class="opt"><div class="opt-key">C</div> Obwohl</div>
+        <div class="opt"><div class="opt-key">D</div> Wenn</div>
+      </div>
+    </div>
+
+    <div class="section-title">🏆 Ergebnis</div>
+    <div class="result">
+      <div class="result-emoji">🏆</div>
+      <div class="result-title">SUPER — SIEG!</div>
+      <div class="result-sub">Du hast "Max" mit 850 : 720 besiegt</div>
+
+      <div class="result-stats">
+        <div class="r-stat"><div class="v">+180</div><div class="l">XP</div></div>
+        <div class="r-stat"><div class="v">8/10</div><div class="l">Richtig</div></div>
+        <div class="r-stat"><div class="v">4,2s</div><div class="l">Ø Zeit</div></div>
+        <div class="r-stat"><div class="v">🔥12</div><div class="l">Streak</div></div>
+      </div>
+
+      <div class="actions">
+        <button class="cta">Nochmal!</button>
+        <button class="btn-light">Zur Übersicht</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

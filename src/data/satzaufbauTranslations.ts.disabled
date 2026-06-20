@@ -1,0 +1,108 @@
+// Turkish translations for Satzaufbau module questions (Almanca + TR kombinasyonu).
+// Almanca teknik terimleri KORUNUR (Akkusativ, Konjunktiv II, Relativsatz, etc.).
+
+export interface SatzbauTranslation {
+  prompt: string;
+  explanation: string;
+  solutionSteps?: string[];
+}
+
+export const satzaufbauTranslations: Record<string, SatzbauTranslation> = {
+  // ─── Satzarten ───────────────────────────────────────────────────────────
+  sa1: {
+    prompt: 'Welche Satzart liegt vor? "Lies bitte den Text bis morgen." / Hangi Satzart? "Lies bitte den Text bis morgen."',
+    explanation: 'Aufforderungssatz (Imperativ): „Lies" ist die Befehlsform. / Aufforderungssatz (Imperativ): „Lies" Befehlsform\'undadır.',
+  },
+  sa2: {
+    prompt: 'Welche Satzart? "Wie spät ist es?" / Hangi Satzart? "Wie spät ist es?"',
+    explanation: 'Fragesatz: erkennbar am W-Wort „Wie" und am Verb an zweiter Stelle. / Fragesatz: „Wie" W-Wort\'undan ve Verb ikinci sırada olduğundan tanınır.',
+  },
+  sa3: {
+    prompt: 'Welche Satzart? "Im Hintergrund summt eine Biene." / Hangi Satzart? "Im Hintergrund summt eine Biene."',
+    explanation: 'Aussagesatz: einfache Feststellung, Verb an zweiter Stelle. / Aussagesatz: basit tespit, Verb ikinci sırada.',
+  },
+  sa4: {
+    prompt: 'Welche Satzart? "Wie schön die Sterne funkeln!" / Hangi Satzart? "Wie schön die Sterne funkeln!"',
+    explanation: 'Ausrufesatz: Ausruf mit „Wie + Adjektiv", finite Verbform am Ende. / Ausrufesatz: „Wie + Adjektiv" ile ünlem, çekimli fiil sonda.',
+  },
+
+  // ─── Satzglieder ──────────────────────────────────────────────────────────
+  sg1: {
+    prompt: 'Welche Satzglied-Funktion hat „dem Schüler" in „Der Lehrer hilft dem Schüler"? / "Der Lehrer hilft dem Schüler" cümlesinde „dem Schüler" hangi Satzglied işlevine sahiptir?',
+    explanation: 'Dativobjekt: Antwort auf WEM? / Dativobjekt: KİME? sorusuna cevap.',
+  },
+  sg2: {
+    prompt: 'Welches Satzglied ist „den neuen Film" in „Wir sehen den neuen Film"? / "Wir sehen den neuen Film" cümlesinde „den neuen Film" hangi Satzglied\'dir?',
+    explanation: 'Akkusativobjekt: Antwort auf WEN/WAS? / Akkusativobjekt: KİMİ/NEYİ? sorusuna cevap.',
+  },
+  sg3: {
+    prompt: 'Welches Satzglied ist „im Park" in „Sie spazieren im Park"? / "Sie spazieren im Park" cümlesinde „im Park" hangi Satzglied\'dir?',
+    explanation: 'Präpositionalobjekt: Antwort auf WO/WOHER/WOHIN? / Präpositionalobjekt: NEREDE/NEREDEN/NEREYE? sorusuna cevap.',
+  },
+
+  // ─── Konnektoren ──────────────────────────────────────────────────────────
+  ko1: {
+    prompt: 'Welcher Konnektor passt? "___ es regnete, blieben wir zu Hause." / Hangi Konnektor? "___ es regnete, blieben wir zu Hause."',
+    explanation: 'Obwohl: obwohl es regnete (konzessiv) — wir blieben trotzdem. / Obwohl: yağmur yağmasına rağmen (konzessiv) — yine de kaldık.',
+  },
+  ko2: {
+    prompt: 'Welcher Konnektor passt? "Ich lerne viel, ___ ich die Prüfung bestehen kann." / Hangi Konnektor? "Ich lerne viel, ___ ich die Prüfung bestehen kann."',
+    explanation: 'Damit: finale Bedeutung (Zweck) — ich lerne zum Zweck des Bestehens. / Damit: amaç anlamı — geçmek için çalışıyorum.',
+  },
+  ko3: {
+    prompt: 'Welcher Konnektor passt? "___ er angekommen war, begann das Konzert." / Hangi Konnektor? "___ er angekommen war, begann das Konzert."',
+    explanation: 'Nachdem: zeitlich vorzeitig, Plusquamperfekt → Präteritum. / Nachdem: zamansal olarak önce, Plusquamperfekt → Präteritum.',
+  },
+
+  // ─── Relativsätze ─────────────────────────────────────────────────────────
+  rs1: {
+    prompt: 'Welches Relativpronomen passt? "Das Buch, ___ ich lese, ist spannend." / Hangi Relativpronomen? "Das Buch, ___ ich lese, ist spannend."',
+    explanation: '„das" — das Buch ist Neutrum, Akkusativ (Buch lesen = Akkusativ). / „das" — Buch Neutrum, Akkusativ (Buch lesen = Akkusativ).',
+  },
+  rs2: {
+    prompt: 'Welches Relativpronomen passt? "Die Frau, ___ ich geholfen habe, lächelt." / Hangi Relativpronomen? "Die Frau, ___ ich geholfen habe, lächelt."',
+    explanation: '„der" — die Frau ist Femininum, Dativ (helfen + Dativ). / „der" — Frau Femininum, Dativ (helfen + Dativ).',
+  },
+  rs3: {
+    prompt: 'Welches Relativpronomen passt? "Der Mann, ___ dort steht, ist mein Onkel." / Hangi Relativpronomen? "Der Mann, ___ dort steht, ist mein Onkel."',
+    explanation: '„der" — der Mann ist Maskulinum, Nominativ (Subjekt des Relativsatzes). / „der" — Mann Maskulinum, Nominativ (Relativsatz\'ın öznesi).',
+  },
+
+  // ─── Konjunktiv II ───────────────────────────────────────────────────────
+  kj1: {
+    prompt: 'Welche Form passt? "Wenn ich Zeit ___ (haben), würde ich dir helfen." / Hangi form? "Wenn ich Zeit ___ (haben), würde ich dir helfen."',
+    explanation: 'Konjunktiv II von „haben" = „hätte". / „haben" Konjunktiv II = „hätte".',
+  },
+  kj2: {
+    prompt: 'Welche Form passt? "Wenn ich du ___ (sein), würde ich sofort anfangen." / Hangi form? "Wenn ich du ___ (sein), würde ich sofort anfangen."',
+    explanation: 'Konjunktiv II von „sein" = „wäre" (Standardsprache), „sei" eher förmlich. / „sein" Konjunktiv II = „wäre" (standart dil), „sei" daha resmi.',
+  },
+  kj3: {
+    prompt: 'Welche Form passt? "Es ___ (regnen) morgen, könnten wir drinnen bleiben." / Hangi form? "Es ___ (regnen) morgen, könnten wir drinnen bleiben."',
+    explanation: 'Konjunktiv II mit „würde" + Infinitiv (umschrieben) — sicherste Form. / Konjunktiv II „würde" + Infinitiv (umschrieben) — en güvenli form.',
+  },
+
+  // ─── Passiv ──────────────────────────────────────────────────────────────
+  pv1: {
+    prompt: 'Bilde das Passiv: "Sie baut ein Haus." / Passiv yap: "Sie baut ein Haus."',
+    explanation: 'Präsens Passiv: „wird" + Partizip II. „Das Haus wird gebaut." / Präsens Passiv: „wird" + Partizip II. „Das Haus wird gebaut."',
+  },
+  pv2: {
+    prompt: 'Bilde das Passiv: "Der Lehrer hat den Schüler gelobt." / Passiv yap: "Der Lehrer hat den Schüler gelobt."',
+    explanation: 'Perfekt Passiv: „ist" + Partizip II + worden. „Der Schüler ist gelobt worden." / Perfekt Passiv: „ist" + Partizip II + worden. „Der Schüler ist gelobt worden."',
+  },
+  pv3: {
+    prompt: 'Bilde das Passiv: "Man hat das Buch 1990 veröffentlicht." / Passiv yap: "Man hat das Buch 1990 veröffentlicht."',
+    explanation: 'Vorgangspassiv: „Das Buch wurde 1990 veröffentlicht." / Vorgangspassiv: „Das Buch wurde 1990 veröffentlicht."',
+  },
+
+  // ─── Plusquamperfekt ─────────────────────────────────────────────────────
+  pq1: {
+    prompt: 'Wähle die korrekte Plusquamperfekt-Form: "Nachdem ich ___ (essen), ging ich ins Kino." / Doğru Plusquamperfekt formunu seç: "Nachdem ich ___ (essen), ging ich ins Kino."',
+    explanation: 'Plusquamperfekt: „hatte" + Partizip II. „Nachdem ich gegessen hatte". / Plusquamperfekt: „hatte" + Partizip II. „Nachdem ich gegessen hatte".',
+  },
+};
+
+export function getSatzbauTranslation(id: string): SatzbauTranslation | undefined {
+  return satzaufbauTranslations[id];
+}

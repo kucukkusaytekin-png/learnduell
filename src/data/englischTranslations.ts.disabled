@@ -1,0 +1,109 @@
+// Turkish translations for English module questions.
+
+export interface EnglischTranslation {
+  prompt: string;
+  explanation: string;
+  solutionSteps?: string[];
+}
+
+export const englischTranslations: Record<string, EnglischTranslation> = {
+  // ─── Tenses ──────────────────────────────────────────────────────────────
+  en_t1: {
+    prompt: 'Choose the correct form: "I ___ (visit) Paris three times in my life." / Doğru formu seç: "I ___ (visit) Paris three times in my life."',
+    explanation: 'Life experience → Present Perfect (have + past participle). / Hayat deneyimi → Present Perfect (have + past participle).',
+  },
+  en_t2: {
+    prompt: 'Choose the correct form: "I ___ (go) to the cinema yesterday." / Doğru formu seç: "I ___ (go) to the cinema yesterday."',
+    explanation: '"Yesterday" = specific past time → Past Simple. go → went (irregular). / "Yesterday" = belirli geçmiş zaman → Past Simple. go → went (düzensiz).',
+  },
+  en_t3: {
+    prompt: 'Choose the correct form: "When I arrived, the film ___ (already start)." / Doğru formu seç: "When I arrived, the film ___ (already start)."',
+    explanation: 'Past Perfect for an action completed BEFORE another past action. / Başka bir geçmiş eylemden ÖNCE tamamlanan eylem için Past Perfect.',
+  },
+  en_t4: {
+    prompt: 'Choose the correct form: "Look at the clouds! It ___ (rain)." / Doğru formu seç: "Look at the clouds! It ___ (rain)."',
+    explanation: 'Prediction based on present evidence → going to. NOT will. / Şimdiki kanıta dayalı tahmin → going to. will değil.',
+  },
+  en_t5: {
+    prompt: 'Choose the correct form: "I ___ (live) in Berlin for five years now." / Doğru formu seç: "I ___ (live) in Berlin for five years now."',
+    explanation: '"For five years now" + still relevant → Present Perfect. / "For five years now" + hâlâ geçerli → Present Perfect.',
+  },
+
+  // ─── Conditionals ───────────────────────────────────────────────────────
+  en_c1: {
+    prompt: 'Choose the correct form: "If it ___ (rain), I will stay home." / Doğru formu seç: "If it ___ (rain), I will stay home."',
+    explanation: 'Type 1: If-clause = Present Simple (rains), main = will + infinitive. / Tip 1: If-cümlesi = Present Simple (rains), ana cümle = will + infinitive.',
+  },
+  en_c2: {
+    prompt: 'Choose the correct form: "If I ___ (be) you, I would apologise." / Doğru formu seç: "If I ___ (be) you, I would apologise."',
+    explanation: 'Type 2: subjunctive "were" for hypothetical present (advice). / Tip 2: varsayımsal şimdiki için subjunctive "were" (tavsiye).',
+  },
+  en_c3: {
+    prompt: 'Choose the correct form: "If she ___ (study) harder, she would have passed the exam." / Doğru formu seç: "If she ___ (study) harder, she would have passed the exam."',
+    explanation: 'Type 3: Past Perfect in if-clause (had studied). / Tip 3: If-cümlesinde Past Perfect (had studied).',
+  },
+
+  // ─── Passive Voice ──────────────────────────────────────────────────────
+  en_p1: {
+    prompt: 'Change to passive: "They built the house in 1990." / Passive\'e çevir: "They built the house in 1990."',
+    explanation: 'Past Simple passive: was/were + past participle. "The house was built in 1990." / Past Simple passive: was/were + past participle. "The house was built in 1990."',
+  },
+  en_p2: {
+    prompt: 'Change to passive: "Somebody has stolen my bike." / Passive\'e çevir: "Somebody has stolen my bike."',
+    explanation: 'Present Perfect passive: has/have been + past participle. "My bike has been stolen." / Present Perfect passive: has/have been + past participle. "My bike has been stolen."',
+  },
+  en_p3: {
+    prompt: 'Change to passive: "They will announce the results tomorrow." / Passive\'e çevir: "They will announce the results tomorrow."',
+    explanation: 'Future passive: will be + past participle. "The results will be announced tomorrow." / Future passive: will be + past participle. "The results will be announced tomorrow."',
+  },
+
+  // ─── Modals & Advanced ──────────────────────────────────────────────────
+  en_m1: {
+    prompt: 'Choose the correct form: "She ___ (can) help us, but she was too busy." / Doğru formu seç: "She ___ (can) help us, but she was too busy."',
+    explanation: 'Past of "can" = "could". Simple past meaning, just "could". / "can" geçmişi = "could". Basit geçmiş, sadece "could".',
+  },
+  en_m3: {
+    prompt: 'Choose the correct form: "I enjoy ___ (read) novels." / Doğru formu seç: "I enjoy ___ (read) novels."',
+    explanation: 'After "enjoy" use gerund (-ing form). / "enjoy"\'dan sonra gerund (-ing formu) kullan.',
+  },
+  en_m4: {
+    prompt: 'Choose the correct form: "I want ___ (travel) to Japan next year." / Doğru formu seç: "I want ___ (travel) to Japan next year."',
+    explanation: 'After "want" use infinitive (to + verb). / "want"\'tan sonra infinitive (to + fiil) kullan.',
+  },
+
+  // ─── Indirect Speech ────────────────────────────────────────────────────
+  en_is1: {
+    prompt: 'Report the sentence: "I am tired," she said. / Report et: "I am tired," she said.',
+    explanation: 'Reported speech: am → was (one step back). Pronoun I → she. / Reported speech: am → was (bir adım geri). Zamir I → she.',
+  },
+  en_is2: {
+    prompt: 'Report the sentence: "I have finished my homework," Tom said. / Report et: "I have finished my homework," Tom said.',
+    explanation: 'Present Perfect → Past Perfect. I → he. / Present Perfect → Past Perfect. I → he.',
+  },
+  en_is3: {
+    prompt: 'Report the question: "Do you like coffee?" he asked. / Report et: "Do you like coffee?" he asked.',
+    explanation: 'Yes/no question → "if" or "whether". Tense shift: like → liked. Pronoun: you → I. / Yes/no question → "if" veya "whether". Tense shift: like → liked. Zamir: you → I.',
+  },
+
+  // ─── Participle Clauses ─────────────────────────────────────────────────
+  en_pc1: {
+    prompt: 'Reduce the relative clause: "The man who is sitting by the window is my uncle." / Relative clause\'ı kısalt: "The man who is sitting by the window is my uncle."',
+    explanation: 'Active + simultaneous → present participle (-ing). "who is sitting" → "sitting". / Active + eşzamanlı → present participle (-ing). "who is sitting" → "sitting".',
+  },
+
+  // ─── Word Formation ─────────────────────────────────────────────────────
+  en_wf1: {
+    prompt: 'Choose the correct word: "The story was so ___ that I could not put it down." (UNREAD) / Doğru kelimeyi seç: "The story was so ___ that I could not put it down."',
+    explanation: 'un- + put + down + -able = "unputdownable" (real word in English!). / un- + put + down + -able = "unputdownable" (İngilizce\'de gerçek kelime!).',
+  },
+
+  // ─── Inversion & Emphasis ───────────────────────────────────────────────
+  en_iv1: {
+    prompt: 'Choose the inverted form: "I have never seen such a beautiful sunset." / Inversion formunu seç: "I have never seen such a beautiful sunset."',
+    explanation: 'Negative adverbial "Never" at the start → inversion: auxiliary + subject + past participle. "have (aux) + I (subj) + seen". / Negatif adverbial "Never" başta → inversion: auxiliary + subject + past participle. "have (aux) + I (subj) + seen".',
+  },
+};
+
+export function getEnglischTranslation(id: string): EnglischTranslation | undefined {
+  return englischTranslations[id];
+}

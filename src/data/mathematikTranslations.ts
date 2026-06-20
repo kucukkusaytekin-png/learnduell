@@ -313,6 +313,118 @@ export const mathTranslations: Record<string, MathTranslation> = {
       'a × b = 0 → parallel. / 0 → parallel.',
     ],
   },
+
+  // ─── Lineare Algebra II (Abitur-Pflichtthema) ─────────────────────────────
+  la1: {
+    prompt: 'Was ist die Dimension einer Matrix mit 3 Zeilen und 4 Spalten? / 3 satır ve 4 sütunlu bir Matris\'in Dimension\'ı nedir?',
+    explanation: 'Eine Matrix mit m Zeilen und n Spalten heißt m×n. / m satır ve n sütunlu Matris m×n adını alır.',
+  },
+  la2: {
+    prompt: 'Wann können zwei Matrizen A und B multipliziert werden? / İki Matris A ve B ne zaman çarpılabilir?',
+    explanation: 'Spaltenanzahl von A muss gleich Zeilenanzahl von B sein. / A\'nın sütun sayısı, B\'nin satır sayısına eşit olmalı.',
+  },
+  la3: {
+    prompt: 'Wie berechnet man die Determinante einer 2×2-Matrix ((a, b), (c, d))? / 2×2 Matris ((a, b), (c, d)) Determinante\'ı nasıl hesaplanır?',
+    explanation: 'Sarrus-Regel für 2×2: ad − bc. / 2×2 için Sarrus kuralı: ad − bc.',
+  },
+  la4: {
+    prompt: 'Berechne det(((3, 1), (2, 4))). / det(((3, 1), (2, 4))) hesapla.',
+    explanation: 'det = 3·4 − 1·2 = 12 − 2 = 10. / det = 3·4 − 1·2 = 10.',
+    solutionSteps: [
+      'Formel: det = ad − bc. / Formül: det = ad − bc.',
+      'Einsetzen: 3·4 − 1·2. / Yerine koy.',
+      'Ergebnis: 10. / Sonuç: 10.',
+    ],
+  },
+  la5: {
+    prompt: 'Was bedeutet det(A) = 0? / det(A) = 0 ne anlama gelir?',
+    explanation: 'A ist singulär und nicht invertierbar. / A singüler, tersi yok.',
+  },
+  la6: {
+    prompt: 'Berechne die Determinante von ((1, 2, 3), (4, 5, 6), (7, 8, 9)). / Determinante\'ı hesapla.',
+    explanation: 'Mit Sarrus: (45+84+96) − (105+72+48) = 0. Zeilen sind linear abhängig. / Sarrus ile 0. Satırlar lineer bağımlı.',
+  },
+  la7: {
+    prompt: 'Was ist das Ziel des Gauss-Verfahrens? / Gauss yönteminin amacı nedir?',
+    explanation: 'Das LGS in Dreiecksform bringen, dann von unten nach oben lösen. / LGS\'yi üçgen forma getirip aşağıdan yukarıya çözmek.',
+  },
+  la8: {
+    prompt: 'Welche Zeilenoperation ist beim Gauss-Verfahren NICHT erlaubt? / Gauss yönteminde hangi satır işlemi YASAKTIR?',
+    explanation: 'Trick: die genannten Optionen SIND erlaubt. Eine Zeile mit 0 zu multiplizieren ist sinnlos. / Verilenler izin verilir. 0 ile çarpmak anlamsız.',
+  },
+  la9: {
+    prompt: 'Ein LGS hat unendlich viele Lösungen, wenn… / LGS\'nin sonsuz çözümü vardır, eğer…',
+    explanation: 'Rang(A) < Anzahl der Variablen (unterbestimmtes System). / Rang(A) < değişken sayısı (eksik belirlenmiş sistem).',
+  },
+  la10: {
+    prompt: 'Welche Aussage über das LGS A·x = b ist richtig? / LGS A·x = b hakkında hangisi doğru?',
+    explanation: 'det(A) ≠ 0 → genau eine Lösung. / det(A) ≠ 0 → tam bir çözüm.',
+  },
+  la11: {
+    prompt: 'Wann existiert die inverse Matrix A⁻¹? / Ters Matris A⁻¹ ne zaman vardır?',
+    explanation: 'Nur wenn det(A) ≠ 0. / Sadece det(A) ≠ 0 iken.',
+  },
+  la12: {
+    prompt: 'Wie berechnet man die inverse Matrix einer 2×2-Matrix A = ((a, b), (c, d))? / 2×2 Matris A\'nın tersi nasıl hesaplanır?',
+    explanation: 'A⁻¹ = (1/det(A)) · ((d, −b), (−c, a)). / Diyagonal değiştir, yan diyagonal negale çevir, det\'e böl.',
+  },
+  la13: {
+    prompt: 'Was ist ein Eigenvektor einer Matrix A? / A Matris\'inin Eigenvektor\'u nedir?',
+    explanation: 'v ≠ 0 mit A·v = λ·v (Richtung bleibt, nur Skalierung). / A·v = λ·v. Yön korunur, sadece ölçek değişir.',
+  },
+  la14: {
+    prompt: 'Wie findet man die Eigenwerte einer Matrix A? / A Matris\'inin Eigenwert\'ları nasıl bulunur?',
+    explanation: 'det(A − λ·I) = 0 lösen (charakteristisches Polynom). / Karakteristik polinomu çöz.',
+  },
+  la15: {
+    prompt: 'Berechne die Eigenwerte von A = ((2, 1), (1, 2)). / Eigenwert\'ları hesapla.',
+    explanation: 'det(A − λ·I) = (2−λ)² − 1 = λ² − 4λ + 3 = 0 → λ = 1, 3. / λ = 1 ve λ = 3.',
+    solutionSteps: [
+      'Charakteristisches Polynom: det(((2−λ, 1), (1, 2−λ))) = (2−λ)² − 1.',
+      'Vereinfachen: λ² − 4λ + 4 − 1 = λ² − 4λ + 3 = 0.',
+      'Mitternachtsformel / pq-Formel: λ = (4 ± √(16−12))/2 = (4 ± 2)/2 = 1 oder 3.',
+    ],
+  },
+  la16: {
+    prompt: 'Welche Bedeutung haben Eigenwerte in der Praxis? / Eigenwert\'ların pratikteki anlamı nedir?',
+    explanation: 'Resonanzfrequenzen, Wachstumsraten, Hauptachsen (PCA), PageRank. / Rezonans frekansları, büyüme oranları, ana eksenler.',
+  },
+  la17: {
+    prompt: 'Was beschreibt eine Übergangsmatrix (Markov-Matrix)? / Übergangsmatrix (Markov) neyi tanımlar?',
+    explanation: 'Wahrscheinlichkeitsübergänge zwischen Zuständen (nicht-negative Einträge, Spaltensumme 1). / Durumlar arası olasılık geçişleri.',
+  },
+  la18: {
+    prompt: 'Was ist der stationäre Zustand einer Markov-Kette? / Markov zincirinin durağan durumu nedir?',
+    explanation: 'π mit M·π = π (Eigenvektor zum Eigenwert 1). / M·π = π olan π vektörü (λ = 1 için Eigenvektor).',
+  },
+  la19: {
+    prompt: 'Wozu dient die transponierte Matrix Aᵀ? / Transpoze Matris Aᵀ ne işe yarar?',
+    explanation: 'Vertauscht Zeilen und Spalten. (A·x)·y = x·(Aᵀ·y). / Satır ve sütunları değiştirir.',
+  },
+  la20: {
+    prompt: 'Wann ist eine Matrix symmetrisch? / Bir Matris ne zaman simetriktir?',
+    explanation: 'A = Aᵀ (also Aᵢⱼ = Aⱼᵢ). Reelle Eigenwerte garantiert. / Aᵢⱼ = Aⱼᵢ. Reel Eigenwert garanti.',
+  },
+  la21: {
+    prompt: 'Wie viele Lösungen hat ein quadratisches LGS A·x = b mit det(A) ≠ 0? / det(A) ≠ 0 olan karesel LGS A·x = b\'nin kaç çözümü var?',
+    explanation: 'Genau eine Lösung (x = A⁻¹·b). / Tam olarak bir çözüm.',
+  },
+  la22: {
+    prompt: 'Was ist die Einheitsmatrix I? / Einheitsmatrix I nedir?',
+    explanation: 'Diagonale = 1, sonst 0. I·A = A·I = A. / Diyagonal = 1, gerisi 0.',
+  },
+  la23: {
+    prompt: 'Welche Operation gehört NICHT zum Gauss-Verfahren? / Gauss yöntemine hangi işlem DAHİL DEĞİLDİR?',
+    explanation: 'Trick-Frage: Vertauschen, Multiplizieren, Vielfache addieren — alles erlaubt. 0 ile çarpma veya "Konstante addieren" (anderes Zeilen-Vielfaches) hariç. / Trick soru: üçü de izinli.',
+  },
+  la24: {
+    prompt: 'Was ist der Rang einer Matrix? / Matris\'in Rang\'ı nedir?',
+    explanation: 'Anzahl der linear unabhängigen Zeilen/Spalten. / Doğrusal bağımsız satır/sütun sayısı.',
+  },
+  la25: {
+    prompt: 'Was bedeutet es, wenn das charakteristische Polynom p(λ) = det(A − λ·I) keine reellen Nullstellen hat? / Karakteristik polinomun reel kökü yoksa ne olur?',
+    explanation: 'A hat keine reellen Eigenwerte (nur komplexe). / A\'nın reel Eigenwert\'ı yok (sadece karmaşık).',
+  },
 };
 
 export function getMathTranslation(id: string): MathTranslation | undefined {

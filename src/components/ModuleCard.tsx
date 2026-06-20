@@ -6,10 +6,12 @@ import clsx from 'clsx';
 
 const iconMap = { book: BookOpen, calculator: Calculator, library: LibIcon, pen: PenLine, languages: Languages };
 
-const colorMap = {
+const colorMap: Record<string, { from: string; to: string; glow: string }> = {
   pink: { from: '#ec4899', to: '#f59e0b', glow: 'rgba(236, 72, 153, 0.25)' },
   cyan: { from: '#06b6d4', to: '#3b82f6', glow: 'rgba(6, 182, 212, 0.25)' },
   green: { from: '#10b981', to: '#14b8a6', glow: 'rgba(16, 185, 129, 0.25)' },
+  purple: { from: '#a855f7', to: '#ec4899', glow: 'rgba(168, 85, 247, 0.25)' },
+  blue: { from: '#3b82f6', to: '#06b6d4', glow: 'rgba(59, 130, 246, 0.25)' },
 };
 
 interface ModuleCardProps {

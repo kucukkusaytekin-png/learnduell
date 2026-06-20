@@ -31,6 +31,7 @@ export default function Layout() {
 
   const navItems = [
     { to: '/', icon: Swords, label: 'Duell', exact: true },
+    { to: '/lektuere', icon: BookOpen, label: 'Lektüre' },
     { to: '/repetitor', icon: Repeat, label: 'Repetitor' },
     { to: '/woerterbuch', icon: BookText, label: 'Wörter' },
     { to: '/challenge', icon: Calendar, label: 'Challenge' },
@@ -41,6 +42,7 @@ export default function Layout() {
   const isActive = (to: string, exact?: boolean) => {
     if (exact) return location.pathname === to;
     if (to === '/learn/satzaufbau') return location.pathname.startsWith('/learn');
+    if (to === '/lektuere') return location.pathname.startsWith('/lektuere');
     return location.pathname.startsWith(to);
   };
 

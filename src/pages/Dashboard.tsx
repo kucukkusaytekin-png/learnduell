@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import { Zap, ArrowRight, Flame, Trophy, Upload, Calendar, Sparkles, PenLine, Repeat, BookText, BarChart3, Flag, Award } from 'lucide-react';
+import { Zap, ArrowRight, Flame, Trophy, Upload, Calendar, Sparkles, PenLine, Repeat, BookText, BarChart3, Flag, Award, BookOpen } from 'lucide-react';
 import { repetitionByTopic } from '../data/repetition';
 import { todayISO } from '../lib/sr';
 import { modules } from '../data/satzaufbau';
@@ -260,6 +260,35 @@ export default function Dashboard() {
           </div>
         </NavLink>
       </div>
+
+      {/* Lektüre (full-width) */}
+      <NavLink
+        to="/lektuere"
+        className="block group relative overflow-hidden card-elevated p-6 hover:border-amber-500/40 transition-all"
+      >
+        <div
+          className="absolute inset-0 opacity-30 pointer-events-none"
+          style={{
+            background:
+              'radial-gradient(circle at 30% 0%, rgba(245,158,11,0.4), transparent 60%), radial-gradient(circle at 100% 100%, rgba(168,85,247,0.3), transparent 60%)',
+          }}
+        />
+        <div className="relative">
+          <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-amber-500 via-orange-500 to-red-500 shadow-lg group-hover:scale-110 transition-transform">
+            <BookOpen className="h-6 w-6 text-white" />
+          </div>
+          <div className="inline-flex items-center gap-1.5 text-[10px] font-bold text-amber-300 uppercase tracking-widest mb-1">
+            Lektüre · Deutsch-Abitur
+          </div>
+          <h3 className="mb-1 text-xl font-bold text-white">
+            Lektüre-Kanon: Kafka · Borchert · Brecht · Mann
+          </h3>
+          <p className="text-xs text-slate-400 max-w-2xl">
+            4 zentrale Autoren mit Biografie, Hauptwerken, Themen, Stilmitteln und typischen Abiturfragen. Pflichtlektüre fürs Zentralabitur NRW.
+          </p>
+          <ArrowRight className="absolute right-0 top-0 h-5 w-5 text-amber-300 transition-transform group-hover:translate-x-1" />
+        </div>
+      </NavLink>
     </div>
   );
 }

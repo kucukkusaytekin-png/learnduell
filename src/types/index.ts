@@ -1,4 +1,4 @@
-export type ModuleId = 'satzaufbau' | 'mathematik' | 'library' | 'stil' | 'englisch';
+export type ModuleId = 'satzaufbau' | 'mathematik' | 'library' | 'stil' | 'englisch' | 'lektuere';
 
 export type QuestionType = 'mcq' | 'fill' | 'order' | 'rewrite';
 
@@ -43,12 +43,29 @@ export interface Topic {
   questions: Question[];
 }
 
+// Leküre (Literatur) modülü — genişletilmiş bilgi kartı
+export interface AuthorInfo {
+  name: string;
+  lebensdaten: string; // 1883-1924
+  herkunft: string;    // Prag
+  epoche: string;      // Expressionismus / Neue Sachlichkeit
+  hauptwerke: string[];
+  zitate?: { text: string; werk: string }[];
+  themen: string[];
+  stilmittel: string[];
+  abiturRelevanz: string; // neden bu yazar Abitur'da önemli
+}
+
+export interface LektuereTopic extends Topic {
+  author: AuthorInfo;
+}
+
 export interface Module {
   id: ModuleId;
   title: string;
   description: string;
   icon: string;
-  color: 'pink' | 'cyan' | 'green';
+  color: 'pink' | 'cyan' | 'green' | 'purple' | 'blue';
   topics: Topic[];
 }
 

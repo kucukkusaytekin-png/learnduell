@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import { Zap, ArrowRight, Flame, Trophy, Upload, Calendar, Sparkles, PenLine, Repeat, BookText, BarChart3, Flag, Award, BookOpen } from 'lucide-react';
+import { Zap, ArrowRight, Flame, Trophy, Upload, Calendar, Sparkles, PenLine, Repeat, BookText, BarChart3, Flag, Award, BookOpen, Languages } from 'lucide-react';
 import { repetitionByTopic } from '../data/repetition';
 import { todayISO } from '../lib/sr';
 import { modules } from '../data/satzaufbau';
@@ -287,6 +287,35 @@ export default function Dashboard() {
             4 zentrale Autoren mit Biografie, Hauptwerken, Themen, Stilmitteln und typischen Abiturfragen. Pflichtlektüre fürs Zentralabitur NRW.
           </p>
           <ArrowRight className="absolute right-0 top-0 h-5 w-5 text-amber-300 transition-transform group-hover:translate-x-1" />
+        </div>
+      </NavLink>
+
+      {/* Mediation (full-width) */}
+      <NavLink
+        to="/mediation"
+        className="block group relative overflow-hidden card-elevated p-6 hover:border-blue-500/40 transition-all"
+      >
+        <div
+          className="absolute inset-0 opacity-30 pointer-events-none"
+          style={{
+            background:
+              'radial-gradient(circle at 70% 0%, rgba(59,130,246,0.4), transparent 60%), radial-gradient(circle at 0% 100%, rgba(168,85,247,0.3), transparent 60%)',
+          }}
+        />
+        <div className="relative">
+          <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-blue-500 via-indigo-500 to-purple-500 shadow-lg group-hover:scale-110 transition-transform">
+            <Languages className="h-6 w-6 text-white" />
+          </div>
+          <div className="inline-flex items-center gap-1.5 text-[10px] font-bold text-blue-300 uppercase tracking-widest mb-1">
+            Mediation · English Abitur
+          </div>
+          <h3 className="mb-1 text-xl font-bold text-white">
+            Mediation: 6 Themen, 3 Level, Musterlösung
+          </h3>
+          <p className="text-xs text-slate-400 max-w-2xl">
+            Deutsche Originaltexte ins Englische übersetzen — Bildung, Umwelt, Geschichte, Politik, Kultur, Soziales. Mit Vokabelliste, Tipps, NRW-Bewertungskriterien.
+          </p>
+          <ArrowRight className="absolute right-0 top-0 h-5 w-5 text-blue-300 transition-transform group-hover:translate-x-1" />
         </div>
       </NavLink>
     </div>

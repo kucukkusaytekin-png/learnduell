@@ -16,6 +16,7 @@ import MockPruefung from './pages/MockPruefung';
 import Achievements from './pages/Achievements';
 import Lektuere from './pages/Lektuere';
 import LektuereTopic from './pages/LektuereTopic';
+import { MediationList, MediationDetail } from './pages/Mediation';
 
 export default function App() {
   return (
@@ -38,6 +39,8 @@ export default function App() {
         <Route path="/achievements" element={<Achievements />} />
         <Route path="/lektuere" element={<Lektuere />} />
         <Route path="/lektuere/:authorId" element={<LektuereTopic />} />
+        <Route path="/mediation" element={<MediationList />} />
+        <Route path="/mediation/:textId" element={<MediationDetail />} />
         <Route path="*" element={<Navigate to="/" />} />
       </Route>
     </Routes>

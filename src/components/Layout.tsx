@@ -1,5 +1,5 @@
 import { NavLink, Outlet, useLocation } from 'react-router-dom';
-import { Swords, BookOpen, Library, Calendar, User, Repeat, BookText, Languages } from 'lucide-react';
+import { Swords, BookOpen, Library, Calendar, User, Repeat, BookText, Languages, Sparkles } from 'lucide-react';
 import { useGameStore, getLigaForLevel, getLigaColor } from '../store/gameStore';
 import { detectUnlocked } from '../lib/achievements';
 import { useEffect } from 'react';
@@ -33,6 +33,7 @@ export default function Layout() {
     { to: '/', icon: Swords, label: 'Duell', exact: true },
     { to: '/lektuere', icon: BookOpen, label: 'Lektüre' },
     { to: '/mediation', icon: Languages, label: 'Mediation' },
+    { to: '/ef-vorbereitung', icon: Sparkles, label: 'EF-Check' },
     { to: '/repetitor', icon: Repeat, label: 'Repetitor' },
     { to: '/woerterbuch', icon: BookText, label: 'Wörter' },
     { to: '/challenge', icon: Calendar, label: 'Challenge' },
@@ -45,6 +46,7 @@ export default function Layout() {
     if (to === '/learn/satzaufbau') return location.pathname.startsWith('/learn');
     if (to === '/lektuere') return location.pathname.startsWith('/lektuere');
     if (to === '/mediation') return location.pathname.startsWith('/mediation');
+    if (to === '/ef-vorbereitung') return location.pathname.startsWith('/ef-vorbereitung');
     return location.pathname.startsWith(to);
   };
 

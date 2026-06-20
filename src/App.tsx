@@ -17,6 +17,7 @@ import Achievements from './pages/Achievements';
 import Lektuere from './pages/Lektuere';
 import LektuereTopic from './pages/LektuereTopic';
 import { MediationList, MediationDetail } from './pages/Mediation';
+import { EfVorbereitungList, EfVorbereitungQuiz } from './pages/EfVorbereitung';
 
 export default function App() {
   return (
@@ -41,6 +42,8 @@ export default function App() {
         <Route path="/lektuere/:authorId" element={<LektuereTopic />} />
         <Route path="/mediation" element={<MediationList />} />
         <Route path="/mediation/:textId" element={<MediationDetail />} />
+        <Route path="/ef-vorbereitung" element={<EfVorbereitungList />} />
+        <Route path="/ef-vorbereitung/:quizId" element={<EfVorbereitungQuiz />} />
         <Route path="*" element={<Navigate to="/" />} />
       </Route>
     </Routes>

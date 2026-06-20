@@ -318,6 +318,35 @@ export default function Dashboard() {
           <ArrowRight className="absolute right-0 top-0 h-5 w-5 text-blue-300 transition-transform group-hover:translate-x-1" />
         </div>
       </NavLink>
+
+      {/* EF-Vorbereitung (full-width) */}
+      <NavLink
+        to="/ef-vorbereitung"
+        className="block group relative overflow-hidden card-elevated p-6 hover:border-emerald-500/40 transition-all"
+      >
+        <div
+          className="absolute inset-0 opacity-30 pointer-events-none"
+          style={{
+            background:
+              'radial-gradient(circle at 0% 0%, rgba(34,197,94,0.4), transparent 60%), radial-gradient(circle at 100% 100%, rgba(245,158,11,0.3), transparent 60%)',
+          }}
+        />
+        <div className="relative">
+          <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-500 via-teal-500 to-amber-500 shadow-lg group-hover:scale-110 transition-transform">
+            <Sparkles className="h-6 w-6 text-white" />
+          </div>
+          <div className="inline-flex items-center gap-1.5 text-[10px] font-bold text-emerald-300 uppercase tracking-widest mb-1">
+            EF-Vorbereitung · 10. Klasse Wiederholung
+          </div>
+          <h3 className="mb-1 text-xl font-bold text-white">
+            Fit für die 11. Klasse: 3× 12-Minuten-Quiz
+          </h3>
+          <p className="text-xs text-slate-400 max-w-2xl">
+            36 kurze Fragen zu Deutsch (Konnektoren, Konjunktiv, Adjektivdeklination), Mathe (Ableitung, Gleichungen, pq-Formel) und English (Tenses, Conditionals, Passive). Sofortiges Feedback mit Themen-Empfehlungen.
+          </p>
+          <ArrowRight className="absolute right-0 top-0 h-5 w-5 text-emerald-300 transition-transform group-hover:translate-x-1" />
+        </div>
+      </NavLink>
     </div>
   );
 }

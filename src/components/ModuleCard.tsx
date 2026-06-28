@@ -1,7 +1,8 @@
 import { NavLink } from 'react-router-dom';
-import { BookOpen, Calculator, Library as LibIcon, PenLine, Languages, ArrowRight } from 'lucide-react';
+import { BookOpen, Calculator, Library as LibIcon, PenLine, Languages, ArrowRight, Sparkles } from 'lucide-react';
 import type { Module } from '../types';
 import { useGameStore } from '../store/gameStore';
+import { isRecentlyAdded } from '../lib/newBadge';
 import clsx from 'clsx';
 
 const iconMap = { book: BookOpen, calculator: Calculator, library: LibIcon, pen: PenLine, languages: Languages };
@@ -26,6 +27,8 @@ export function ModuleCard({ module, showDuelButton = true }: ModuleCardProps) {
   const completedCount = progress?.completedTopics.length ?? 0;
   const totalTopics = module.topics.length;
   const progressPct = totalTopics === 0 ? 0 : (completedCount / totalTopics) * 100;
+  // Module-level "Neu" badge — true if ANY topic in this module was added recently
+  const newCount = module.topics.filter((t) => isRecentlyAdded(t.addedAt)).length;
 
   return (
     <div className="card p-5 sm:p-6 hover:border-border-default transition-all group relative overflow-hidden">
@@ -43,11 +46,19 @@ export function ModuleCard({ module, showDuelButton = true }: ModuleCardProps) {
           >
             <Icon className="w-6 h-6" />
           </div>
-          {module.topics.length === 0 && (
-            <span className="chip bg-white/5 border-border-default text-text-secondary text-[11px] uppercase tracking-wider">
-              Bald
-            </span>
-          )}
+          <div className="flex flex-col items-end gap-1.5">
+            {newCount > 0 && (
+              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider text-white bg-gradient-to-r from-amber-500 to-pink-500 shadow-sm animate-pulse">
+                <Sparkles className="w-3 h-3" />
+                {newCount === 1 ? 'Neu' : `${newCount}× Neu`}
+              </span>
+            )}
+            {module.topics.length === 0 && (
+              <span className="chip bg-white/5 border-border-default text-text-secondary text-[11px] uppercase tracking-wider">
+                Bald
+              </span>
+            )}
+          </div>
         </div>
 
         <h3 className="text-lg sm:text-xl font-bold mb-1 tracking-tight">{module.title}</h3>

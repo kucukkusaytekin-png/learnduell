@@ -459,6 +459,7 @@ const stochastik: Topic = {
   id: 'stochastik',
   title: 'Stochastik',
   summary: 'Laplace, Baumdiagramm, Binomialverteilung, Bernoulli-Ketten, Hypothesentest — NRW Abi Pflichtthema (Q1 + Q2).',
+  addedAt: '2026-06-28',
   lesson: {
     intro:
       'Die Stochastik beschäftigt sich mit Zufall und Wahrscheinlichkeit. In der Oberstufe lernst du, Wahrscheinlichkeiten zu berechnen und zu interpretieren.',

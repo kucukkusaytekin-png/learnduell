@@ -1,11 +1,33 @@
 import { useState } from 'react';
 import { useParams, NavLink } from 'react-router-dom';
-import { ArrowLeft, ArrowRight, CheckCircle2, Circle, BookOpen, Lightbulb } from 'lucide-react';
+import { ArrowLeft, ArrowRight, CheckCircle2, Circle, BookOpen, Lightbulb, Sparkles } from 'lucide-react';
 import { getModule } from '../data/satzaufbau';
 import { useGameStore } from '../store/gameStore';
+import { isRecentlyAdded } from '../lib/newBadge';
 import clsx from 'clsx';
 
 const EMPTY: string[] = [];
+
+/**
+ * "Neu" pill shown for topics added within the last 14 days.
+ * Amber gradient — visually loud so the student notices fresh content.
+ */
+function NeuBadge({ className }: { className?: string }) {
+  return (
+    <span
+      className={clsx(
+        'inline-flex items-center gap-1 px-2 py-0.5 rounded-full',
+        'text-[10px] font-black uppercase tracking-wider text-white',
+        'bg-gradient-to-r from-amber-500 to-pink-500 shadow-sm',
+        'animate-pulse',
+        className
+      )}
+    >
+      <Sparkles className="w-3 h-3" />
+      Neu
+    </span>
+  );
+}
 
 export default function Learn() {
   const { moduleId, topicId } = useParams();
@@ -43,6 +65,7 @@ export default function Learn() {
             {mod.topics.map((t) => {
               const isActive = t.id === activeTopicId;
               const done = completedTopics.includes(t.id);
+              const isNew = isRecentlyAdded(t.addedAt);
               return (
                 <button
                   key={t.id}
@@ -59,7 +82,8 @@ export default function Learn() {
                   ) : (
                     <Circle className="w-4 h-4 flex-shrink-0 opacity-50" />
                   )}
-                  <span className="truncate">{t.title}</span>
+                  <span className="truncate flex-1">{t.title}</span>
+                  {isNew && <NeuBadge />}
                 </button>
               );
             })}
@@ -71,8 +95,11 @@ export default function Learn() {
       <article className="space-y-6">
         {/* Header */}
         <header className="card-elevated p-6 sm:p-8">
-          <div className="text-xs text-text-muted uppercase tracking-widest font-bold mb-2">
-            {mod.title}
+          <div className="flex items-center justify-between mb-2">
+            <div className="text-xs text-text-muted uppercase tracking-widest font-bold">
+              {mod.title}
+            </div>
+            {isRecentlyAdded(activeTopic.addedAt) && <NeuBadge />}
           </div>
           <h1 className="text-3xl sm:text-4xl font-black tracking-tight mb-3">{activeTopic.title}</h1>
           <p className="text-text-secondary text-base sm:text-lg leading-relaxed">{activeTopic.summary}</p>

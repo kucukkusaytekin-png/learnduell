@@ -35,6 +35,8 @@ export interface Topic {
   id: string;
   title: string;
   summary: string;
+  // ISO date string (YYYY-MM-DD) — used to flag "Neu" badge for recent additions
+  addedAt?: string;
   // Learning material
   lesson: {
     intro: string;

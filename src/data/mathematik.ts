@@ -458,7 +458,7 @@ const vektoren: Topic = {
 const stochastik: Topic = {
   id: 'stochastik',
   title: 'Stochastik',
-  summary: 'Wahrscheinlichkeitsrechnung — Laplace, bedingte Wahrscheinlichkeit, Erwartungswert.',
+  summary: 'Laplace, Baumdiagramm, Binomialverteilung, Bernoulli-Ketten, Hypothesentest — NRW Abi Pflichtthema (Q1 + Q2).',
   lesson: {
     intro:
       'Die Stochastik beschäftigt sich mit Zufall und Wahrscheinlichkeit. In der Oberstufe lernst du, Wahrscheinlichkeiten zu berechnen und zu interpretieren.',
@@ -492,6 +492,51 @@ const stochastik: Topic = {
         body: 'E(X) = Σ xᵢ · P(xᵢ). Was auf lange Sicht als Mittelwert herauskommt.',
         examples: [
           'Spiel: Gewinn 10€ mit P=0.3, Verlust 5€ mit P=0.7 → E = 10·0.3 - 5·0.7 = 3 - 3.5 = -0.5€ (Verlust)',
+        ],
+      },
+      {
+        title: 'Baumdiagramm & Pfadregeln',
+        body: 'Ein Baumdiagramm stellt mehrstufige Zufallsexperimente dar. Pfadregel 1 (Produktregel): entlang eines Pfades multiplizieren. Pfadregel 2 (Summenregel): Pfade eines Ereignisses addieren.',
+        examples: [
+          '2× Würfeln, beide 6: 1/6 · 1/6 = 1/36 (Pfadregel 1).',
+          'Mindestens ein 6 bei 2 Würfen: 1 − 5/6 · 5/6 = 11/36 (Gegenereignis + Pfadregel 1).',
+          'Pfade mit gerader Augensumme: alle "passenden" Pfade werden summiert (Pfadregel 2).',
+        ],
+      },
+      {
+        title: 'Bedingte Wahrscheinlichkeit & Unabhängigkeit',
+        body: 'P(A|B) = P(A ∩ B) / P(B). Zwei Ereignisse sind unabhängig, wenn P(A ∩ B) = P(A) · P(B) gilt — dann ändert B die Wahrscheinlichkeit von A nicht.',
+        examples: [
+          'Karte ziehen ohne Zurücklegen: P(2. Karte ist Herz | 1. Karte war Herz) = 12/51 (12 Herz-Karten, 51 Karten übrig).',
+          'Zwei Mal Würfeln: P(beide 6) = P(6) · P(6) = 1/36 — unabhängig.',
+          'Satz von Bayes: P(A|B) = P(B|A) · P(A) / P(B) — kehrt bedingte W\'keit um.',
+        ],
+      },
+      {
+        title: 'Binomialverteilung & Bernoulli-Ketten',
+        body: 'X ist binomialverteilt (X ~ B(n, p)), wenn X die Anzahl der Treffer bei n unabhängigen Bernoulli-Versuchen mit Trefferwahrscheinlichkeit p zählt. Erwartungswert E(X) = n·p, Standardabweichung σ = √(n·p·(1−p)).',
+        examples: [
+          '10 Würfe, p = 0,3: E = 3, σ = √(10·0,3·0,7) = √2,1 ≈ 1,45.',
+          'P(X = k) = C(n, k) · p^k · (1−p)^(n−k).',
+          'P(X = 4) bei n=10, p=0,5: C(10,4) · 0,5⁴ · 0,5⁶ = 210/1024 ≈ 0,205.',
+        ],
+      },
+      {
+        title: 'Hypothesentest',
+        body: 'Statistisches Verfahren: Man prüft eine Nullhypothese H₀ anhand einer Stichprobe. Ablehnungsbereich = Werte, bei denen H₀ abgelehnt wird. Fehler 1. Art = H₀ ist wahr, wird aber abgelehnt (α). Fehler 2. Art = H₀ ist falsch, wird aber nicht abgelehnt (β).',
+        examples: [
+          'Münze scheint unfair. H₀: p = 0,5. Wir werfen 100-mal, zählen Treffer. Wenn Treffer ≤ 40 oder ≥ 60 → H₀ ablehnen (α = 5% ≈ 2σ).',
+          'Fehler 1. Art: faire Münze wird als unfair abgestempelt.',
+          'Fehler 2. Art: unfaire Münze wird übersehen.',
+        ],
+      },
+      {
+        title: 'Kombinatorik (Zählprinzipien)',
+        body: 'Permutation: n! Möglichkeiten, n Objekte anzuordnen. Variation: n·(n−1)·... wenn Reihenfolge wichtig und ohne Wiederholung. Kombination C(n,k) = n!/(k!·(n−k)!), wenn Reihenfolge egal.',
+        examples: [
+          '5 Bücher im Regal: 5! = 120 Reihenfolgen.',
+          '10 Personen, 2 Ämter (Vorsitz + Stellvertreter): 10·9 = 90 (Variation, Reihenfolge wichtig).',
+          '6 Personen, 3-köpfige AG: C(6,3) = 20 (Kombination, Reihenfolge egal).',
         ],
       },
     ],
@@ -589,6 +634,387 @@ const stochastik: Topic = {
         'Berechne die Wahrscheinlichkeit: P = 6/36.',
         'Kürze: 6/36 = 1/6.',
       ]
+    ),
+
+    // ─── Baumdiagramm & Pfadregeln ──────────────────────────────────────────
+    makeMcq(
+      's7',
+      'Was besagt die 1. Pfadregel (Produktregel) bei einem Baumdiagramm?',
+      'Die Wahrscheinlichkeit eines Pfads ist das Produkt der Einzelwahrscheinlichkeiten entlang des Pfads.',
+      ['Die Wahrscheinlichkeiten werden addiert', 'Es gibt keine Regel', 'Nur der erste Ast zählt'],
+      'Pfadregel 1: Entlang eines Pfads werden die Wahrscheinlichkeiten multipliziert. Beispiel: 0,6 · 0,5 = 0,3.',
+      1,
+      ['stochastik', 'baumdiagramm'],
+      [
+        'Öffne das Baumdiagramm von oben nach unten.',
+        'Multipliziere entlang jedes Pfads die Wahrscheinlichkeiten.',
+        'Beispiel: Ast 1: 0,6, Ast 2 (von Ast 1): 0,5 → Pfad: 0,6 · 0,5 = 0,3.',
+      ],
+      { prompt: '1. Pfadregel ne der? Çarpma mı toplama mı?', explanation: 'Bir yol boyunca olasılıklar çarpılır. Örn: 0,6 · 0,5 = 0,3.', solutionSteps: ['Ağacı yukarıdan aşağı oku.', 'Her yolda olasılıkları çarp.', 'Örn: 0,6 · 0,5 = 0,3.'] }
+    ),
+    makeMcq(
+      's8',
+      'Was besagt die 2. Pfadregel (Summenregel)?',
+      'Die Wahrscheinlichkeit eines Ereignisses ist die Summe der Wahrscheinlichkeiten aller zugehörigen Pfade.',
+      ['Die Pfade werden multipliziert', 'Man nimmt nur den ersten Pfad', 'Man teilt durch die Anzahl der Pfade'],
+      'Summenregel: Für ein Ereignis werden alle Pfade addiert, die zum Ereignis gehören.',
+      2,
+      ['stochastik', 'baumdiagramm'],
+      [
+        'Identifiziere alle Pfade, die zum gewünschten Ereignis gehören.',
+        'Addiere die Wahrscheinlichkeiten dieser Pfade.',
+        'Beispiel: P(A) = 0,3 + 0,2 = 0,5.',
+      ],
+      { prompt: '2. Pfadregel ne der? Toplama.', explanation: 'Bir olayın yollarının olasılıkları toplanır.', solutionSteps: ['Olayı oluşturan yolları bul.', 'Olasılıkları topla.', 'Örn: P(A) = 0,3 + 0,2 = 0,5.'] }
+    ),
+    makeMcq(
+      's9',
+      'Aus einer Urne mit 3 roten und 2 schwarzen Kugeln wird zweimal OHNE Zurücklegen gezogen. Wie groß ist P(rot, dann schwarz)?',
+      '3/10',
+      ['6/25', '1/5', '3/5'],
+      'Ohne Zurücklegen: P(rot zuerst) = 3/5. Dann sind noch 4 Kugeln da, davon 2 schwarz. P(schwarz | rot gezogen) = 2/4. Pfad: 3/5 · 2/4 = 6/20 = 3/10.',
+      2,
+      ['stochastik', 'baumdiagramm', 'ziehen'],
+      [
+        'Bestimme P(rot zuerst) = 3/5.',
+        'Ohne Zurücklegen: 4 Kugeln bleiben, 2 schwarz.',
+        'P(schwarz danach) = 2/4 = 1/2.',
+        'Pfadregel 1: 3/5 · 1/2 = 3/10.',
+      ],
+      { prompt: 'Yerine koymadan: 3 kırmızı + 2 siyah, 2 kez çek. İlk kırmızı sonra siyah?', explanation: 'P(kırmızı) = 3/5, sonra 4 top kalır → P(siyah) = 2/4. Çarp: 3/5 · 1/2 = 3/10.', solutionSteps: ['İlk çekiş: 3/5.', 'Yerine koymadan: 4 top kalır, 2 siyah.', 'P(siyah|önce kırmızı) = 2/4.', 'Çarp: 3/5 · 1/2 = 3/10.'] }
+    ),
+    makeMcq(
+      's10',
+      'Aus einer Urne mit 3 roten und 2 schwarzen Kugeln wird zweimal MIT Zurücklegen gezogen. Wie groß ist P(beide rot)?',
+      '9/25',
+      ['6/20', '3/5', '6/25'],
+      'Mit Zurücklegen sind die Ziehungen unabhängig. P(rot) bleibt bei 3/5. Pfad: 3/5 · 3/5 = 9/25.',
+      2,
+      ['stochastik', 'baumdiagramm', 'ziehen'],
+      [
+        'Mit Zurücklegen → jedes Mal wieder 5 Kugeln.',
+        'P(rot) bleibt konstant bei 3/5.',
+        'Pfadregel 1: 3/5 · 3/5 = 9/25.',
+      ],
+      { prompt: 'Yerine koyarak: 3 kırmızı + 2 siyah, 2 kez çek. İkisi de kırmızı?', explanation: 'Bağımsız çekiliş. P(kırmızı) = 3/5 kalır. Çarp: 3/5 · 3/5 = 9/25.', solutionSteps: ['Yerine koyunca hep 5 top.', 'P(kırmızı) hep 3/5.', 'Çarp: 3/5 · 3/5 = 9/25.'] }
+    ),
+
+    // ─── Bedingte Wahrscheinlichkeit & Vierfeldertafel ──────────────────────
+    makeMcq(
+      's11',
+      'Wie ist die bedingte Wahrscheinlichkeit P(A|B) definiert?',
+      'P(A|B) = P(A ∩ B) / P(B)',
+      ['P(A|B) = P(A) · P(B)', 'P(A|B) = P(A) + P(B)', 'P(A|B) = P(B) / P(A)'],
+      'Die bedingte Wahrscheinlichkeit P(A|B) gibt die Wahrscheinlichkeit von A an, wenn B bereits eingetreten ist. Formel: P(A ∩ B) / P(B).',
+      2,
+      ['stochastik', 'bedingt'],
+      [
+        'Definition: P(A|B) = Wahrscheinlichkeit von A, gegeben B.',
+        'Formel: P(A ∩ B) / P(B).',
+        'Voraussetzung: P(B) > 0.',
+        'Beispiel: P(König|Karte ist Herz) = 1/13 (1 König in 13 Herz-Karten).',
+      ],
+      { prompt: 'Koşullu olasılık P(A|B) formülü?', explanation: 'P(A ∩ B) / P(B). B gerçekleştiğinde A olasılığı.', solutionSteps: ['Tanım: B olmuşken A.', 'Formül: P(A ∩ B) / P(B).', 'P(B) > 0 olmalı.'] }
+    ),
+    makeMcq(
+      's12',
+      'In einer Klasse sind 12 Mädchen und 8 Jungen. 5 Mädchen und 4 Jungen haben eine 1 in Mathe. P(Mädchen | 1 in Mathe)?',
+      '5/9',
+      ['12/20', '5/12', '1/2'],
+      'P(M ∩ 1) = 5/20. P(1) = 9/20. P(M | 1) = (5/20) / (9/20) = 5/9.',
+      3,
+      ['stochastik', 'bedingt', 'vierfeldertafel'],
+      [
+        'Erstelle Vierfeldertafel: 12 Mädchen, 8 Jungen, 5+4 = 9 mit Note 1.',
+        'Bestimme P(M ∩ 1) = 5/20.',
+        'Bestimme P(1) = 9/20.',
+        'Anwenden: P(M | 1) = (5/20) / (9/20) = 5/9.',
+      ],
+      { prompt: '12 kız + 8 erkek. 5 kız ve 4 erkek matematikten 1 aldı. P(kız | 1)?', explanation: 'P(K ∩ 1) = 5/20, P(1) = 9/20. Oran: 5/9.', solutionSteps: ['Dört alanlı tablo.', 'P(K ∩ 1) = 5/20.', 'P(1) = 9/20.', 'Böl: 5/20 ÷ 9/20 = 5/9.'] }
+    ),
+    makeMcq(
+      's13',
+      'Was ist der Satz von Bayes (einfache Form)?',
+      'P(A|B) = P(B|A) · P(A) / P(B)',
+      ['P(A|B) = P(A) + P(B)', 'P(A|B) = P(A) · P(B)', 'P(A|B) = P(B)'],
+      'Bayes erlaubt das Umkehren der bedingten Wahrscheinlichkeit: wenn man P(B|A) kennt, kann man P(A|B) berechnen.',
+      3,
+      ['stochastik', 'bayes', 'bedingt'],
+      [
+        'Bayes-Formel: P(A|B) = P(B|A) · P(A) / P(B).',
+        'Anwendung: Medizinische Tests, Vorhersagen.',
+        'Beispiel: Krankheit hat 1% Vorkommen, Test ist 99% genau, dann P(krank|positiv) ist trotzdem nicht 99%.',
+      ],
+      { prompt: 'Bayes formülü?', explanation: 'P(A|B) = P(B|A) · P(A) / P(B). Ters koşullu olasılık hesabı.', solutionSteps: ['Formül: P(A|B) = P(B|A)·P(A) / P(B).', 'Tıbbi test, öngörü.', 'P(hasta|test+) P(hasta) değil!'] }
+    ),
+
+    // ─── Stochastische Unabhängigkeit ───────────────────────────────────────
+    makeMcq(
+      's14',
+      'Wann heißen zwei Ereignisse A und B stochastisch unabhängig?',
+      'Wenn P(A ∩ B) = P(A) · P(B) gilt.',
+      ['Wenn P(A) = P(B) ist', 'Wenn A und B sich gegenseitig ausschließen', 'Wenn P(A ∪ B) = 1 ist'],
+      'Unabhängigkeit bedeutet: das Eintreten von B verändert die Wahrscheinlichkeit von A nicht. Formal: P(A ∩ B) = P(A) · P(B).',
+      2,
+      ['stochastik', 'unabhaengigkeit'],
+      [
+        'Definition: P(A ∩ B) = P(A) · P(B).',
+        'Bedeutet: A und B beeinflussen sich nicht.',
+        'Beispiel: Zweimaliges Würfeln — die Ergebnisse sind unabhängig.',
+      ],
+      { prompt: 'Bağımsızlık tanımı?', explanation: 'P(A ∩ B) = P(A) · P(B). A ve B birbirini etkilemez.', solutionSteps: ['Formül: P(A ∩ B) = P(A) · P(B).', 'Bağımsız → birbirini etkilemez.', 'Örn: iki zar atışı.'] }
+    ),
+    makeMcq(
+      's15',
+      'Zwei Ereignisse sind stochastisch unabhängig, wenn gilt: P(A|B) = ?',
+      'P(A)',
+      ['P(B)', 'P(A ∩ B)', '0'],
+      'Unabhängigkeit bedeutet: die Bedingung B ändert die Wahrscheinlichkeit von A nicht. Also P(A|B) = P(A).',
+      2,
+      ['stochastik', 'unabhaengigkeit'],
+      [
+        'Aus P(A|B) = P(A ∩ B) / P(B) und Unabhängigkeit P(A ∩ B) = P(A)·P(B) folgt P(A|B) = P(A).',
+      ],
+      { prompt: 'Bağımsızsa P(A|B) ne?', explanation: 'P(A|B) = P(A). Koşul değiştirmez.', solutionSteps: ['P(A|B) = P(A∩B)/P(B) = P(A)·P(B)/P(B) = P(A).'] }
+    ),
+
+    // ─── Binomialverteilung ─────────────────────────────────────────────────
+    makeMcq(
+      's16',
+      'Wann ist eine Zufallsvariable X binomialverteilt?',
+      'Wenn sie die Anzahl der Treffer bei n unabhängigen Bernoulli-Versuchen mit gleicher Trefferwahrscheinlichkeit p zählt.',
+      ['Wenn nur ein Versuch gemacht wird', 'Wenn alle Ergebnisse verschieden sind', 'Wenn die Summe immer 1 ist'],
+      'Bernoulli-Kette: n Versuche, jeder mit Erfolg/Misserfolg, gleiche p. X = Anzahl Erfolge ist binomialverteilt mit Parametern n und p.',
+      2,
+      ['stochastik', 'binomial'],
+      [
+        'Bernoulli-Bedingungen: feste Anzahl n, unabhängig, gleiche Trefferwahrscheinlichkeit p.',
+        'X = Anzahl der Treffer.',
+        'Schreibweise: X ~ B(n, p).',
+      ],
+      { prompt: 'Binomial dağılım koşulu?', explanation: 'n bağımsız Bernoulli denemesi, sabit p. X = başarı sayısı.', solutionSteps: ['Sabit n.', 'Bağımsız.', 'Sabit p.', 'X ~ B(n, p).'] }
+    ),
+    makeMcq(
+      's17',
+      'Wie berechnet man den Erwartungswert einer binomialverteilten Zufallsvariable?',
+      'E(X) = n · p',
+      ['E(X) = n / p', 'E(X) = √(n·p)', 'E(X) = n + p'],
+      'Erwartungswert einer Binomialverteilung: E(X) = n · p. Beispiel: 100 Würfe mit p=0,5 → E(X) = 50.',
+      1,
+      ['stochastik', 'binomial', 'erwartungswert'],
+      [
+        'Formel: E(X) = n · p.',
+        'Beispiel: 10 Würfe, p = 0,3 → E = 3.',
+        'Beispiel: 100 Würfe, p = 0,5 → E = 50.',
+      ],
+      { prompt: 'Binomial X için E(X)?', explanation: 'E(X) = n · p. Örn: 100 atış, p=0,5 → E=50.', solutionSteps: ['Formül: n·p.', 'Örn: n=10, p=0,3 → 3.', 'Örn: n=100, p=0,5 → 50.'] }
+    ),
+    makeMcq(
+      's18',
+      'Wie berechnet man die Standardabweichung einer binomialverteilten Zufallsvariable?',
+      'σ = √(n · p · (1 − p))',
+      ['σ = n · p · (1 − p)', 'σ = n · p', 'σ = √(n) · p'],
+      'Standardabweichung: σ = √(Varianz) = √(n · p · (1 − p)). Beispiel: 100 Würfe, p=0,5 → σ = √25 = 5.',
+      2,
+      ['stochastik', 'binomial', 'standardabweichung'],
+      [
+        'Varianz: Var(X) = n · p · (1 − p).',
+        'Standardabweichung: σ = √(Var(X)) = √(n · p · (1 − p)).',
+        'Beispiel: n=100, p=0,5 → σ = √(100·0,5·0,5) = √25 = 5.',
+      ],
+      { prompt: 'Standart sapma σ?', explanation: 'σ = √(n·p·(1−p)). Örn: n=100, p=0,5 → σ=5.', solutionSteps: ['Varyans: n·p·(1−p).', 'σ = √Varyans.', 'Örn: √(100·0,5·0,5) = √25 = 5.'] }
+    ),
+    makeMcq(
+      's19',
+      'Wie berechnet man die Wahrscheinlichkeit, bei n=10 Bernoulli-Versuchen mit p=0,5 genau k=3 Treffer zu erzielen?',
+      'P(X=3) = C(10,3) · 0,5³ · 0,5⁷ ≈ 0,117',
+      ['P(X=3) = 10 · 0,5³', 'P(X=3) = 3/10', 'P(X=3) = 0,5³'],
+      'Bernoulli-Formel: P(X=k) = C(n,k) · p^k · (1−p)^(n−k). C(10,3) = 120. 120 · (0,5)^10 = 120/1024 ≈ 0,117.',
+      3,
+      ['stochastik', 'binomial', 'berechnung'],
+      [
+        'Formel: P(X=k) = C(n,k) · p^k · (1−p)^(n−k).',
+        'C(10,3) = 10!/(3!·7!) = 120.',
+        'p³ · (1−p)⁷ = 0,5³ · 0,5⁷ = 0,5¹⁰ = 1/1024.',
+        'P(X=3) = 120 · 1/1024 ≈ 0,117.',
+      ],
+      { prompt: 'P(X=3) n=10, p=0,5?', explanation: 'P(X=k) = C(n,k)·p^k·(1−p)^(n−k). C(10,3)·0,5¹⁰ ≈ 0,117.', solutionSteps: ['Formül: C(n,k)·p^k·(1−p)^(n−k).', 'C(10,3) = 120.', 'p³·(1−p)⁷ = 0,5¹⁰ = 1/1024.', '120/1024 ≈ 0,117.'] }
+    ),
+
+    // ─── Bernoulli-Ketten: Anwendung ────────────────────────────────────────
+    makeMcq(
+      's20',
+      'Ein Basketballspieler trifft mit p = 0,7. Wie groß ist die Wahrscheinlichkeit, bei 5 Versuchen GENAU 4 zu treffen?',
+      'P(X=4) = C(5,4) · 0,7⁴ · 0,3¹ ≈ 0,36',
+      ['0,7⁴ ≈ 0,24', '0,7 · 0,3', '0,5'],
+      'C(5,4) = 5. P(X=4) = 5 · 0,7⁴ · 0,3 = 5 · 0,2401 · 0,3 ≈ 0,36.',
+      3,
+      ['stochastik', 'bernoulli', 'berechnung'],
+      [
+        'Formel: P(X=k) = C(n,k) · p^k · (1−p)^(n−k).',
+        'C(5,4) = 5.',
+        'p⁴ · (1−p)¹ = 0,7⁴ · 0,3 = 0,2401 · 0,3 = 0,07203.',
+        'P(X=4) = 5 · 0,07203 ≈ 0,360.',
+      ],
+      { prompt: '5 atışta tam 4 isabet? p=0,7', explanation: 'C(5,4)·0,7⁴·0,3¹ = 5·0,072 ≈ 0,36.', solutionSteps: ['Formül: C(n,k)·p^k·(1−p)^(n−k).', 'C(5,4)=5.', '0,7⁴·0,3=0,072.', '5·0,072≈0,36.'] }
+    ),
+    makeMcq(
+      's21',
+      'Ein Schütze trifft mit p = 0,8. Wie groß ist P(mindestens 9 Treffer bei 10 Schüssen)?',
+      'P(X≥9) = P(X=9) + P(X=10) = 10·0,8⁹·0,2 + 0,8¹⁰ ≈ 0,376',
+      ['0,8⁹', '1 − 0,8¹⁰', '0,8 · 10'],
+      'Mindestens 9 = X=9 oder X=10. P(X=9) = 10 · 0,8⁹ · 0,2 ≈ 0,268. P(X=10) = 0,8¹⁰ ≈ 0,107. Summe ≈ 0,376.',
+      3,
+      ['stochastik', 'bernoulli', 'mindestens'],
+      [
+        'Mindestens 9 = X=9 oder X=10.',
+        'P(X=9) = C(10,9) · 0,8⁹ · 0,2¹ = 10 · 0,1342 · 0,2 ≈ 0,268.',
+        'P(X=10) = 0,8¹⁰ ≈ 0,107.',
+        'Summe: 0,268 + 0,107 ≈ 0,376.',
+      ],
+      { prompt: 'P(en az 9 isabet, 10 atış, p=0,8)?', explanation: 'P(X=9)+P(X=10) = 10·0,8⁹·0,2 + 0,8¹⁰ ≈ 0,376.', solutionSteps: ['X=9 veya X=10.', 'P(X=9)=10·0,8⁹·0,2≈0,268.', 'P(X=10)=0,8¹⁰≈0,107.', 'Toplam ≈ 0,376.'] }
+    ),
+    makeMcq(
+      's22',
+      'Wie berechnet man P(höchstens 2 Treffer bei 5 Versuchen mit p = 0,3)?',
+      'P(X≤2) = P(X=0) + P(X=1) + P(X=2)',
+      ['1 − P(X=3) − P(X=4) − P(X=5)', 'P(X=2)', 'P(X=0) · P(X=1) · P(X=2)'],
+      'Höchstens 2 = X=0, 1 oder 2. Summenregel: addiere alle Einzelwahrscheinlichkeiten. Alternative: 1 − P(X≥3), aber direktes Summieren ist meistens einfacher.',
+      2,
+      ['stochastik', 'bernoulli', 'hoechstens'],
+      [
+        'Höchstens 2 = X=0 oder X=1 oder X=2.',
+        'Summenregel: P(X≤2) = P(X=0) + P(X=1) + P(X=2).',
+        'Berechne jeden Term mit Bernoulli-Formel.',
+        'Alternative (bei großen n): 1 − P(X≥3).',
+      ],
+      { prompt: 'P(X≤2) n=5, p=0,3?', explanation: 'P(X=0)+P(X=1)+P(X=2). Tek tek hesapla.', solutionSteps: ['X=0 veya X=1 veya X=2.', 'Topla.', 'Büyük n için: 1−P(X≥3).'] }
+    ),
+    makeMcq(
+      's23',
+      'Welche Faustregel gilt für die Annäherung einer Binomialverteilung durch die Normalverteilung?',
+      'σ > 3 (also n·p·(1−p) > 9)',
+      ['n > 10', 'p > 0,5', 'n·p < 1'],
+      'Normalapproximation ist gut, wenn die Standardabweichung σ = √(n·p·(1−p)) > 3 ist, also n·p·(1−p) > 9. Faustregel: σ > 3.',
+      3,
+      ['stochastik', 'normalverteilung'],
+      [
+        'Faustregel: σ = √(n·p·(1−p)) > 3.',
+        'Äquivalent: n·p·(1−p) > 9.',
+        'Beispiel: n=100, p=0,5 → σ=5 > 3, also gut approximierbar.',
+        'Beispiel: n=20, p=0,1 → σ=√(1,8) ≈ 1,34, schlecht approximierbar.',
+      ],
+      { prompt: 'Normal yaklaşımı ne zaman?', explanation: 'σ = √(n·p·(1−p)) > 3, yani n·p·(1−p) > 9.', solutionSteps: ['σ > 3.', 'n·p·(1−p) > 9.', 'Örn: n=100, p=0,5 → σ=5 ✓.', 'Örn: n=20, p=0,1 → σ≈1,34 ✗.'] }
+    ),
+
+    // ─── Hypothesentest ─────────────────────────────────────────────────────
+    makeMcq(
+      's24',
+      'Was ist ein Hypothesentest in der Stochastik?',
+      'Ein statistisches Verfahren, um eine Vermutung über einen Parameter mit Stichproben zu überprüfen.',
+      ['Eine Methode, um Würfel zu analysieren', 'Ein Test für Hypothesen im Alltag', 'Eine andere Bezeichnung für Erwartungswert'],
+      'Ein Hypothesentest prüft eine Nullhypothese H₀ anhand einer Stichprobe. Man entscheidet, ob die Nullhypothese abgelehnt wird oder nicht.',
+      2,
+      ['stochastik', 'hypothesentest'],
+      [
+        'Definition: statistisches Testverfahren.',
+        'Nullhypothese H₀ wird gegen Alternative H₁ getestet.',
+        'Entscheidung basiert auf Stichprobe und Ablehnungsbereich.',
+      ],
+      { prompt: 'Hipotez testi nedir?', explanation: 'H₀\'ı örneklem ile kontrol etme. Kabul/red kararı.', solutionSteps: ['Tanım: istatistiksel test.', 'H₀ ve H₁.', 'Red bölgesine göre karar.'] }
+    ),
+    makeMcq(
+      's25',
+      'Was ist der Ablehnungsbereich bei einem Hypothesentest?',
+      'Der Bereich der Stichprobenwerte, bei dessen Eintreten H₀ abgelehnt wird.',
+      ['Der Bereich, in dem H₀ akzeptiert wird', 'Der Wertebereich der Grundgesamtheit', 'Eine Konstante'],
+      'Der Ablehnungsbereich (auch kritischer Bereich) ist die Menge der Stichprobenergebnisse, bei denen die Nullhypothese abgelehnt wird. Sein Komplement ist der Annahmebereich.',
+      3,
+      ['stochastik', 'hypothesentest', 'ablehnungsbereich'],
+      [
+        'Definition: Wertebereich, bei dem H₀ abgelehnt wird.',
+        'Ergänzt zum Annahmebereich: dort wird H₀ nicht abgelehnt.',
+        'Festlegung: Signifikanzniveau α (z.B. 5%).',
+      ],
+      { prompt: 'Red bölgesi ne?', explanation: 'H₀\'ın reddedildiği değerler aralığı. Anlamlılık α ile belirlenir.', solutionSteps: ['Tanım.', 'Anlamlılık düzeyi α.', 'Kabul/red alanı.'] }
+    ),
+    makeMcq(
+      's26',
+      'Was ist der Fehler 1. Art bei einem Hypothesentest?',
+      'H₀ wird abgelehnt, obwohl sie wahr ist (falscher Alarm).',
+      ['H₀ wird angenommen, obwohl sie falsch ist', 'Es wird eine falsche Stichprobe gezogen', 'Es gibt keinen Fehler 1. Art'],
+      'Fehler 1. Art: H₀ ist wahr, wird aber abgelehnt. Wahrscheinlichkeit = Signifikanzniveau α. Beispiel: Wir behaupten, eine Münze ist unfair, obwohl sie fair ist.',
+      3,
+      ['stochastik', 'hypothesentest', 'fehler'],
+      [
+        'Definition: H₀ wahr, aber abgelehnt.',
+        'Wahrscheinlichkeit: α (Signifikanzniveau).',
+        'Typisches Beispiel: Medikament wirkt nicht, Test sagt doch wirkt.',
+      ],
+      { prompt: '1. tip hata ne?', explanation: 'H₀ doğru ama reddediliyor. Olasılık = α.', solutionSteps: ['Tanım.', 'α.', 'Örn: ilaç yok, test var diyor.'] }
+    ),
+    makeMcq(
+      's27',
+      'Was ist der Fehler 2. Art bei einem Hypothesentest?',
+      'H₀ wird nicht abgelehnt, obwohl sie falsch ist (verpasster Effekt).',
+      ['H₀ wird abgelehnt, obwohl sie wahr ist', 'Es liegt ein Rechenfehler vor', 'Es gibt keinen Fehler 2. Art'],
+      'Fehler 2. Art: H₀ ist falsch, wird aber nicht abgelehnt. Wahrscheinlichkeit = β. Beispiel: Wir erkennen nicht, dass die Münze unfair ist.',
+      3,
+      ['stochastik', 'hypothesentest', 'fehler'],
+      [
+        'Definition: H₀ falsch, aber nicht abgelehnt.',
+        'Wahrscheinlichkeit: β.',
+        'Beispiel: Krankheit vorhanden, Test sagt gesund.',
+      ],
+      { prompt: '2. tip hata ne?', explanation: 'H₀ yanlış ama kabul. Olasılık = β.', solutionSteps: ['Tanım.', 'β.', 'Örn: hasta, test sağlıklı diyor.'] }
+    ),
+
+    // ─── Kombinatorik ───────────────────────────────────────────────────────
+    makeMcq(
+      's28',
+      'Wie viele Möglichkeiten gibt es, 5 verschiedene Bücher in einem Regal anzuordnen (Permutation)?',
+      '5! = 120',
+      ['5', '25', '5² = 25'],
+      'Permutation von n Elementen: n!. 5! = 5·4·3·2·1 = 120.',
+      1,
+      ['stochastik', 'kombinatorik', 'permutation'],
+      [
+        'Formel: n! = n·(n−1)·(n−2)·...·1.',
+        '5! = 5·4·3·2·1 = 120.',
+        'Beispiel: 5 Bücher, 120 Reihenfolgen.',
+      ],
+      { prompt: '5 kitap kaç sıraya?', explanation: 'n! = 120. 5·4·3·2·1.', solutionSteps: ['n! = n·(n−1)·...·1.', '5! = 5·4·3·2·1 = 120.'] }
+    ),
+    makeMcq(
+      's29',
+      'Wie viele Möglichkeiten gibt es, aus 10 Personen einen Klassensprecher UND einen Stellvertreter zu wählen (Reihenfolge wichtig, Variation)?',
+      '10 · 9 = 90',
+      ['10', '45', '10 · 10 = 100'],
+      'Variation ohne Wiederholung: für Sprecher 10 Möglichkeiten, für Stellvertreter noch 9. Total: 10 · 9 = 90.',
+      2,
+      ['stochastik', 'kombinatorik', 'variation'],
+      [
+        'Variation: Reihenfolge wichtig.',
+        'Schritt 1: 10 Möglichkeiten für Sprecher.',
+        'Schritt 2: 9 Möglichkeiten für Stellvertreter (eine Person schon gewählt).',
+        'Total: 10 · 9 = 90.',
+      ],
+      { prompt: '10 kişiden başkan ve yardımcı?', explanation: 'Sıralı seçim: 10 · 9 = 90.', solutionSteps: ['Sıralı önemli.', '10 seçenek başkan.', '9 seçenek yardımcı.', 'Çarp: 90.'] }
+    ),
+    makeMcq(
+      's30',
+      'Wie viele Möglichkeiten gibt es, aus 6 Personen eine 3-köpfige AG zu wählen (Reihenfolge egal, Kombination)?',
+      'C(6,3) = 20',
+      ['6·5·4 = 120', '3! = 6', 'C(6,3) = 6'],
+      'Kombination ohne Wiederholung: C(n,k) = n!/(k!·(n−k)!). C(6,3) = 6!/(3!·3!) = 720/36 = 20.',
+      2,
+      ['stochastik', 'kombinatorik', 'kombination'],
+      [
+        'Kombination: Reihenfolge egal.',
+        'Formel: C(n,k) = n! / (k! · (n−k)!).',
+        'C(6,3) = 6!/(3!·3!) = 720/36 = 20.',
+      ],
+      { prompt: '6 kişiden 3 kişilik grup?', explanation: 'C(6,3) = 6!/(3!·3!) = 20.', solutionSteps: ['Kombinasyon.', 'C(n,k) = n!/(k!(n−k)!).', 'C(6,3) = 720/36 = 20.'] }
     ),
   ],
 };
